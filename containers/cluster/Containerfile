@@ -1,5 +1,5 @@
 FROM rancher/k3s:latest as k3s-base
-ENV K3S_CLUSTER_SECRET=thisisnotasecret
+# ENV K3S_CLUSTER_SECRET=thisisnotasecret
 
 FROM k3s-base as server
 ENV K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml

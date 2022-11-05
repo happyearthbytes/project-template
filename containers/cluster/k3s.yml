@@ -7,7 +7,9 @@ metadata:
 spec:
   containers:
   - command:
+    - k3s
     - server
+    - --disable-agent
     name: k3s-server
     image: k3s:server
     env:
@@ -30,7 +32,8 @@ spec:
     - mountPath: /output
       name: k3s-host
   - command:
-    - node
+    - k3s
+    - server
     name: k3s-worker
     image: k3s:worker
     env:
@@ -61,7 +64,7 @@ spec:
       hostPath:
         path: /Users/josephdipilato/Documents/thing/repos/project-template/containers/cluster
         type: Directory
-    - name: tmpfs
+    - name: tempfs
       emptyDir:
         medium: Memory
         sizeLimit: 64Mi
