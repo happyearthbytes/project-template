@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: k3s
+  name: k3s
+spec:
+  containers:
+  - command:
+    - server
+    name: k3s-server
+    image: k3s:server
+    env:
+    - name: K3S_CLUSTER_SECRET
+      value: somethingtotallyrandom
+    - name: K3S_KUBECONFIG_OUTPUT
+      value: /output/kubeconfig.yaml
+    - name: K3S_KUBECONFIG_MODE
+      value: "666"
+    ports:
+    - containerPort: 6443
+      hostPort: 6443
+      protocol: TCP
+    resources: {}
+    securityContext:
+      privileged: false
+    volumeMounts:
+    - mountPath: /var/lib/rancher/k3s
+      name: k3s-volume
+    - mountPath: /output
+      name: k3s-host
+
+  - command:
+    - node
+    name: k3s-server
+    image: k3s:server
+    env:
+    - name: K3S_CLUSTER_SECRET
+      value: somethingtotallyrandom
+    - name: K3S_URL
+      value: https://k3s-server:6443
+    ports:
+    - containerPort: 6443
+      hostPort: 6443
+      protocol: TCP
+    resources: {}
+    securityContext:
+      privileged: true
+  restartPolicy: Always
+  volumes:
+    - name: k3s-volume
+    - name: k3s-host
+      hostPath:
+        path: /Users/josephdipilato/Documents/thing/repos/project-template/containers/cluster
+        type: Directory

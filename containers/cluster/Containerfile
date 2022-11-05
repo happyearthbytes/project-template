@@ -1,0 +1,18 @@
+FROM rancher/k3s:latest as k3s-base
+ENV K3S_CLUSTER_SECRET=thisisnotasecret
+
+FROM k3s-base as server
+ENV K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+ENV K3S_KUBECONFIG_MODE=666
+VOLUME [ "/var/lib/rancher/k3s" ]
+VOLUME [ "/output" ]
+EXPOSE 6443
+CMD [ "server","--disable-agent" ]
+
+FROM k3s-base as worker
+ENV K3S_URL=https://k3s-server:6443
+
+FROM worker as node
+EXPOSE 31000-32000
+
+# docker run --tmpfs /run --tmpfs /var/run --privileged -e K3S_CLUSTER_SECRET=somethingtotallyrandom -e K3S_URL=https://server:6443 rancher/k3s:latest
