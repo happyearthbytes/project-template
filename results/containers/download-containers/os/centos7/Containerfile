@@ -1,0 +1,284 @@
+FROM centos:7 as os_layer
+
+# Layer
+FROM os_layer as repo_layer
+
+WORKDIR /local_tools/repo_layer
+RUN yumdownloader --resolve createrepo
+
+# Layer
+FROM repo_layer as authentication_layer
+
+WORKDIR /local_tools/authentication_layer
+RUN yumdownloader --resolve openssh-server
+RUN yumdownloader --resolve openssh-clients
+
+# Layer
+FROM authentication_layer as basic_layer
+
+WORKDIR /local_tools/basic
+RUN yumdownloader --resolve epel-release
+RUN yumdownloader --resolve wget
+RUN yumdownloader --resolve python3
+RUN yumdownloader --resolve git
+RUN yumdownloader --resolve gcc-c++
+
+RUN echo -e \
+"[global]                                                                  \n"\
+"trusted-host =                                                            \n"\
+"  pypi.python.org                                                         \n"\
+"  pypi.org                                                                \n"\
+"  files.pythonhosted.org                                                  \n"\
+> /etc/pip.conf
+
+RUN echo -e \
+"[main]                                                                    \n"\
+"cachedir=/var/cache/yum/$basearch/$releasever                             \n"\
+"keepcache=0                                                               \n"\
+"debuglevel=2                                                              \n"\
+"logfile=/var/log/yum.log                                                  \n"\
+"exactarch=1                                                               \n"\
+"obsoletes=1                                                               \n"\
+"gpgcheck=1                                                                \n"\
+"plugins=1                                                                 \n"\
+"installonly_limit=5                                                       \n"\
+"distroverpkg=centos-release                                               \n"\
+"override_install_langs=en_US.utf8                                         \n"\
+"tsflags=nodocs                                                            \n"\
+"timeout=1000                                                              \n"\
+> /etc/yum.conf 
+
+#install epel-release to enable all needed repos to be visible
+RUN yum install -y\
+  epel-release\
+  wget\
+  python3\
+  git\
+  gcc\
+  gcc-c++
+
+# Layer
+FROM basic_layer as certificate_layer
+
+WORKDIR /local_tools/certificate_layer
+RUN yumdownloader --resolve ca-certificates
+RUN wget http://pki.us.baesystems.com/Certificate_chain_base64.cer --no-check-certificate
+RUN wget http://config.objectstorage.cdc-west-2.devlnk.net/scripts/install-certs.sh --no-check-certificate
+
+WORKDIR /local_tools/basic
+# The authenticaion layer configures ssh
+# RUN mkdir -p /root/.ssh
+# COPY ./docker_ssh_key /root/.ssh/id_rsa
+# RUN chmod 600 /root/.ssh/id_rsa
+# COPY ./docker_ssh_key.pub /root/.ssh/id_rsa.pub
+# COPY ./known_hosts /root/.ssh/known_hosts
+RUN yum -y install\
+  ca-certificates\
+  update-ca-trust
+  # openssh-server\
+  # openssh-clients\
+# RUN mkdir -p /var/run/sshd
+# RUN ssh-keygen -A
+# COPY ./sshd_config /etc/ssh/sshd_config
+
+# The certificate layer adds BAE Systems certificates
+WORKDIR /local_tools/certificate_layer
+RUN /bin/bash ./install-certs.sh
+RUN mkdir /usr/local/share/ca-certificates
+RUN cp ./*.cer /usr/local/share/ca-certificates/
+RUN update-ca-trust
+
+# Layer
+FROM certificate_layer as install_layer
+
+# Layer
+FROM install_layer as basic_tools_layer
+
+# The basic tools layer adds basic common utilities
+WORKDIR /local_tools/basic_tools_layer
+RUN yumdownloader --resolve gcc-c++
+
+
+
+
+# RUN yumdownloader --resolve make
+# RUN yumdownloader --resolve cmake
+# RUN yumdownloader --resolve cmake3
+# RUN yumdownloader --resolve wget
+# RUN yumdownloader --resolve unzip
+# RUN yumdownloader --resolve python-pip
+
+# ##############################################################################
+# # tools_download_basic
+# ##############################################################################
+# FROM basic_tools_layer as tools_download_basic
+# CMD [ "tail", "-f", "/dev/null" ]
+# ##############################################################################
+
+# # Layer
+# FROM install_layer as download_ucc
+# WORKDIR /local_tools/advanced_tools_layer
+# # download and build UCC
+# # ucc build requires gcc-c++
+# RUN git clone --recurse-submodules ssh://git@esbitbucket.goldlnk.rootlnka.net:7999/ucc/ucc_tools.git
+# WORKDIR /local_tools/advanced_tools_layer/ucc_tools
+# RUN ./build_linux ucc_upstream_2018
+# RUN mv UCC lines_of_code.py /local_tools/advanced_tools_layer
+# WORKDIR /local_tools/advanced_tools_layer
+# RUN rm -rf ucc_tools
+
+# FROM install_layer as download_wget
+# WORKDIR /local_tools/advanced_tools_layer
+# RUN wget https://github.com/checkstyle/checkstyle/releases/download/checkstyle-8.38/checkstyle-8.38-all.jar --no-check-certificate
+# RUN wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-3.el7.noarch.rpm --no-check-certificate
+# RUN wget https://services.gradle.org/distributions/gradle-6.7-bin.zip --no-check-certificate
+# # plantuml is used to generate uml documentation from pu/puml files
+# RUN wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download --no-check-certificate && mv download plantuml.jar
+# ENV ACTIVEMQ_VERSION 5.16.1
+# RUN wget -O activemq.tar.gz http://archive.apache.org/dist/activemq/${ACTIVEMQ_VERSION}/apache-activemq-${ACTIVEMQ_VERSION}-bin.tar.gz --no-check-certificate
+
+# # Note that it is possible that a bug in BUILDKIT (2021) may cause errors
+# # during parallel builds and require rebuilding or building without BUILDKIT
+# FROM install_layer as download_yum_base
+# WORKDIR /local_tools/advanced_tools_layer
+# RUN yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+# FROM download_yum_base as download_yum_1
+# RUN yumdownloader --resolve ant
+# FROM download_yum_base as download_yum_2
+# RUN yumdownloader --resolve maven
+# FROM download_yum_base as download_yum_3
+# RUN yumdownloader --resolve doxygen
+# FROM download_yum_base as download_yum_4
+# RUN yumdownloader --resolve cppcheck
+# FROM download_yum_base as download_yum_5
+# RUN yumdownloader --resolve cloc
+# FROM download_yum_base as download_yum_6
+# RUN yumdownloader --resolve epel-release
+# FROM download_yum_base as download_yum_7
+# RUN yumdownloader --resolve yum-utils
+# FROM download_yum_base as download_yum_8
+# RUN yumdownloader --resolve device-mapper-persistent-data
+# FROM download_yum_base as download_yum_9
+# RUN yumdownloader --resolve lvm2
+# FROM download_yum_base as download_yum_10
+# RUN yumdownloader --resolve docker-ce
+# FROM download_yum_base as download_yum_11
+# RUN yumdownloader --resolve docker-compose
+# FROM download_yum_base as download_yum_12
+# RUN yumdownloader --resolve ca-certificates
+# FROM download_yum_base as download_yum_13
+# RUN yumdownloader --resolve java-1.8.0-openjdk
+# FROM download_yum_base as download_yum_14
+# RUN yumdownloader --resolve rpm-build
+# FROM download_yum_base as download_yum_15
+# # pandoc is used for markdown document generation
+# RUN yumdownloader --resolve pandoc
+# FROM download_yum_base as download_yum_16
+# # graphviz is used with plantuml
+# RUN yumdownloader --resolve graphviz
+# FROM download_yum_base as download_yum_17
+# RUN yumdownloader --resolve perl
+# #TODO move perl to basic?
+# FROM download_yum_base as download_yum_18
+# # Required by Tensorflow
+# RUN yumdownloader --resolve python3-devel
+# RUN yumdownloader --resolve python-devel
+# RUN yumdownloader --resolve atlas
+# RUN yumdownloader --resolve atlas-devel
+# RUN yumdownloader --resolve gcc-gfortran
+# RUN yumdownloader --resolve openssl-devel
+# RUN yumdownloader --resolve libffi-devel
+
+# FROM alpine as download_yum
+# COPY --from=download_yum_1 /local_tools/ /local_tools/
+# COPY --from=download_yum_2 /local_tools/ /local_tools/
+# COPY --from=download_yum_3 /local_tools/ /local_tools/
+# COPY --from=download_yum_4 /local_tools/ /local_tools/
+# COPY --from=download_yum_5 /local_tools/ /local_tools/
+# COPY --from=download_yum_6 /local_tools/ /local_tools/
+# COPY --from=download_yum_7 /local_tools/ /local_tools/
+# COPY --from=download_yum_8 /local_tools/ /local_tools/
+# COPY --from=download_yum_9 /local_tools/ /local_tools/
+# COPY --from=download_yum_10 /local_tools/ /local_tools/
+# COPY --from=download_yum_11 /local_tools/ /local_tools/
+# COPY --from=download_yum_12 /local_tools/ /local_tools/
+# COPY --from=download_yum_13 /local_tools/ /local_tools/
+# COPY --from=download_yum_14 /local_tools/ /local_tools/
+# COPY --from=download_yum_15 /local_tools/ /local_tools/
+# COPY --from=download_yum_16 /local_tools/ /local_tools/
+# COPY --from=download_yum_17 /local_tools/ /local_tools/
+# COPY --from=download_yum_18 /local_tools/ /local_tools/
+
+# FROM install_layer as download_pip_base
+# WORKDIR /local_tools/advanced_tools_layer
+# # download and upgrade pip
+# RUN python3 -m pip download pip
+# RUN python3 -m pip install --upgrade pip
+# FROM download_pip_base as download_pip_1
+# # tensorflow requires gcc-c++ and python3-devel
+# RUN python3 -m pip download tensorflow
+# FROM download_pip_base as download_pip_2
+# RUN python3 -m pip download coverage
+# FROM download_pip_base as download_pip_3
+# RUN python3 -m pip download pytest
+# FROM download_pip_base as download_pip_4
+# RUN python3 -m pip download pylint
+# FROM download_pip_base as download_pip_5
+# RUN python3 -m pip download gcovr
+# FROM download_pip_base as download_pip_6
+# RUN python3 -m pip download PyYAML
+# FROM download_pip_base as download_pip_7
+# RUN python3 -m pip download setuptools
+# FROM download_pip_base as download_pip_8
+# RUN python3 -m pip download sphinx
+# FROM download_pip_base as download_pip_9
+# RUN python3 -m pip download pexpect
+# FROM download_pip_base as download_pip_10
+# RUN python3 -m pip download dataclasses
+
+# FROM alpine as download_pip
+# COPY --from=download_pip_1 /local_tools/ /local_tools/
+# COPY --from=download_pip_2 /local_tools/ /local_tools/
+# COPY --from=download_pip_3 /local_tools/ /local_tools/
+# COPY --from=download_pip_4 /local_tools/ /local_tools/
+# COPY --from=download_pip_5 /local_tools/ /local_tools/
+# COPY --from=download_pip_6 /local_tools/ /local_tools/
+# COPY --from=download_pip_7 /local_tools/ /local_tools/
+# COPY --from=download_pip_8 /local_tools/ /local_tools/
+# COPY --from=download_pip_9 /local_tools/ /local_tools/
+# COPY --from=download_pip_10 /local_tools/ /local_tools/
+
+# ##############################################################################
+# # tools_download_advanced
+# ##############################################################################
+# # Now that we have all the data, copy data to an empty image
+# FROM alpine as tools_download_advanced
+# COPY --from=basic_tools_layer /local_tools/ /tools/
+# COPY --from=download_ucc /local_tools/advanced_tools_layer /tools/advanced_tools_layer
+# COPY --from=download_wget /local_tools/advanced_tools_layer /tools/advanced_tools_layer
+# COPY --from=download_yum /local_tools/advanced_tools_layer /tools/advanced_tools_layer
+# COPY --from=download_pip /local_tools/advanced_tools_layer /tools/advanced_tools_layer
+# CMD [ "tail", "-f", "/dev/null" ]
+# ##############################################################################
+
+# # Layer
+# FROM tools_download_basic as download_texlive
+# WORKDIR /local_tools/advanced_tools_layer
+# # download latex (not tested) (this is massive, probably should have alt approach)
+# # This takes several hours
+# RUN wget "http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz" --no-check-certificate
+# RUN tar -xvf install-tl-unx.tar.gz
+# RUN rm install-tl-*.tar.gz
+# COPY texlive.profile .
+# RUN yum install perl-Digest-MD5 -y
+# RUN perl install-tl-*/install-tl --profile=texlive.profile
+
+# ##############################################################################
+# # tools_download_texlive
+# ##############################################################################
+# # Now that we have all the data, copy data to an empty image
+# # Using alpine as alternate to scratch that can stay alive
+# FROM alpine as tools_download_texlive
+# COPY --from=download_texlive /local_tools/advanced_tools_layer /tools/
+# CMD [ "tail", "-f", "/dev/null" ]
+# ##############################################################################

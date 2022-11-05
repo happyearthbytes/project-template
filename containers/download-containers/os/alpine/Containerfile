@@ -1,0 +1,24 @@
+FROM tools:scripts as scripts
+FROM alpine as os
+
+###############################################################################
+FROM os as add_scripts
+COPY --from=scripts /scripts /scripts
+
+###############################################################################
+FROM add_scripts as certs_layer
+RUN sed -i 's/https/http/g' /etc/apk/repositories
+RUN apk add wget curl bash ca-certificates openssl
+WORKDIR /certs
+RUN wget http://config.objectstorage.cdc-west-2.devlnk.net/data/ca-trust-certs.tgz -O certs.tgz && \
+    tar -xvf certs.tgz && \
+    cp ./etc/pki/ca-trust/source/anchors/* /usr/local/share/ca-certificates/ && \
+    cat ./etc/pki/ca-trust/source/anchors/* > /usr/local/share/ca-certificates/combined.crt && \
+    openssl x509 -inform PEM -in /usr/local/share/ca-certificates/combined.crt \
+      -out /usr/local/share/ca-certificates/certificate.crt && \
+    cat /usr/local/share/ca-certificates/certificate.crt >> /etc/ssl/certs/ca-certificates.crt
+RUN update-ca-certificates
+WORKDIR /
+RUN rm -rf /certs
+RUN sed -i 's/http/https/g' /etc/apk/repositories
+RUN apk update

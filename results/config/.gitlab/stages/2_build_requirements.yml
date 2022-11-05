@@ -1,0 +1,27 @@
+# Common
+###############################################################################
+include:
+  - local: "config/gitlab/common/common.yml"
+
+# Jobs
+###############################################################################
+build-requirements:
+  extends:
+    - .build-requirements
+  # services:
+  #   - !reference [.build-requirements-common, services]
+  before_script:
+    - !reference [.build-requirements-common, before_script]
+    - echo "Not Implemented"
+  script:
+    - !reference [.build-requirements-common, script]
+    - echo "Not Implemented"
+  after_script:
+    - echo "Not Implemented"
+    - !reference [.build-requirements-common, after_script]
+  cache:
+    - !reference [.build-requirements-common, cache]
+  needs:
+    - !reference [.build-requirements-common, needs]
+  rules:
+    - !reference [.build-requirements-common, rules]

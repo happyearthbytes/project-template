@@ -1,0 +1,4 @@
+image_name: download
+image_tag: alpine
+build_context: .
+requirements: ../../../../scripts/container

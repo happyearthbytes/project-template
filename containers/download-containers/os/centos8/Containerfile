@@ -1,0 +1,6 @@
+FROM centos:8 as os_layer
+
+# Layer
+FROM os_layer as repo_layer
+
+COPY bbb /data/

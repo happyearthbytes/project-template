@@ -1,0 +1,24 @@
+###############################################################################
+# BUILD AND PUSH
+###############################################################################
+variables:
+  KANIKO_CACHE_ARGS: "--cache=false --cache-copy-layers=false --cache-ttl=24h"
+  KANIKO_EXTRA_ARGS: "--push-retry=5 --reproducible --verbosity=info"
+
+.build_with_kaniko:
+  image:
+    name: registry.gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  stage: build-image
+  variables:
+    KANIKO_DOCKERFILE: "--dockerfile ${DOCKERFILE_RELATIVE_PATH}"
+    KANIKO_CONTEXT: "--context ${DOCKER_CONTEXT_RELATIVE_PATH}"
+    DESTINATION_IMAGE: "--destination ${MAIN_DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+    BUILD_ARGS: "--build-arg IMAGE_TAG=${IMAGE_TAG}" # You can use ${CI_COMMIT_REF_NAME} if you want
+  before_script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${MAIN_DOCKER_REGISTRY}\":{\"username\":\"${CICD_DOCKER_REGISTRY_USER}\",\"password\":\"${CICD_DOCKER_REGISTRY_TOKEN}\"}}}" > /kaniko/.docker/config.json
+    - echo "${ADDITIONAL_CA_CERT_BUNDLE}" > /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+  script:
+    - /kaniko/executor ${KANIKO_EXTRA_ARGS} ${KANIKO_CONTEXT} ${KANIKO_DOCKERFILE} ${KANIKO_CACHE_ARGS} ${BUILD_ARGS} ${DESTINATION_IMAGE}
+    - echo "${DESTINATION_IMAGE}"

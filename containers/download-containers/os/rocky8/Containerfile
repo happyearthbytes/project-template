@@ -1,0 +1,25 @@
+FROM rockylinux:8 as os_layer
+FROM tools:scripts as scripts
+
+# Layer
+FROM os_layer as scripts_layer
+
+FROM scripts_layer as certs_layer
+RUN curl http://config.objectstorage.cdc-west-2.devlnk.net/scripts/install-certs.sh | /bin/bash
+# RUN dnf makecache
+
+COPY --from=scripts /scripts /scripts
+
+RUN dnf -y install cmake
+ENV PACKAGES_TO_DOWNLOAD="\
+findutils \
+"
+RUN echo -e \
+". /scripts/libs/bash/lib_package_management.sh                                 \n"\   
+"_set_package_download_dir /download                                       \n"\   
+"_download ${PACKAGES_TO_DOWNLOAD}                                         \n"\   
+> script.sh && chmod +x script.sh
+
+RUN ./script.sh
+RUN pwd
+RUN ls /download

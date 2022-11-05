@@ -1,0 +1,6 @@
+<settings>
+    <localRepository>
+        /root/.m2/repo
+    </localRepository>
+    <offline>false</offline>
+</settings>

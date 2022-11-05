@@ -1,0 +1,6 @@
+[hooks "commit-msg"]
+        requireIssue = true
+        issueRegex = [[A-Z0-9]{2,10}-\\d+]
+        addBranchName = true
+        validateIssue = false
+        allowOverrides = false

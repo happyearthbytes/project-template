@@ -1,0 +1,39 @@
+#!/bin/sh
+###############################################################################
+# The primary function of this script is to check and update the commit message
+###############################################################################
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2 # unused
+SHA1=$3 # unused
+
+# Get the branch name
+# Remove long prefix e.g. devel/bugfix/SCR-### -> SCR-###
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+BRANCH_NAME="${BRANCH_NAME##*/}"
+
+# Determine if an identifier is in the commit message
+# This will use ANY issue ID in brackets
+ID_IN_COMMIT=$(grep -P '\[.*\]+' ${COMMIT_MSG_FILE})
+
+###############################################################################
+# CONFIGURATION VARIABLES
+###############################################################################
+addBranchName=$(git config --get --bool hooks.commit-msg.addBranchName || echo 'false')
+
+#==============================================================================
+# addBranchName
+#==============================================================================
+# if we want to automatically add identifier to commit 
+if [ "${addBranchName}" = "true" ]; then
+  # Check if we already have an identifier in the commit
+  # Note that if an issue id is already added in a comment,
+  # Don't modify anything
+  # If no identifier is in commit just add the branch name
+  # Note that this is not guaranteed to be an issue ID
+  # This will fail the commit-msg check if that is enforced
+  if [ -z "$ID_IN_COMMIT" ]; then
+    echo "Applying branch name [${BRANCH_NAME}] to commit message."
+    sed -i.bak -e "1s/^/[$BRANCH_NAME] /" ${COMMIT_MSG_FILE}
+  fi
+fi

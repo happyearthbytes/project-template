@@ -1,0 +1,20 @@
+###############################################################################
+# INCLUDES
+###############################################################################
+include:
+  - local: config/gitlab/lib/build_container.yml
+  - local: "config/gitlab/templates/global.yml"
+  - local: "config/gitlab/templates/0_environment.yml"
+  - local: "config/gitlab/templates/1_triggers.yml"
+  - local: "config/gitlab/templates/2_build_requirements.yml"
+  - local: "config/gitlab/templates/3_pre_build.yml"
+  - local: "config/gitlab/templates/4_build.yml"
+  - local: "config/gitlab/templates/5_archive.yml"
+  - local: "config/gitlab/templates/6_scan.yml"
+  - local: "config/gitlab/templates/7_code_docs.yml"
+  - local: "config/gitlab/templates/8_project_docs.yml"
+  - local: "config/gitlab/templates/9_test.yml"
+  - local: "config/gitlab/templates/10_publish.yml"
+  - local: "config/gitlab/templates/11_verify.yml"
+  - local: "config/gitlab/templates/12_release.yml"
+  - local: "config/gitlab/templates/13_deploy.yml"

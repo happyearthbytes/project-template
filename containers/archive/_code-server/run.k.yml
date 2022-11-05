@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: code-server
+  labels:
+    name: code-server
+spec:
+  hostNetwork: true
+  containers:
+    - image: code-server:develop
+      imagePullPolicy: Never
+      name: code-server
+      args:
+      - --cert-key
+      - /etc/pki/tls/certs/
+      - --auth
+      - none
+      - --disable-telemetry
+      env:
+      - name: PASSWORD
+        value: password
+      - name: PUID
+        value: 1000
+      - name: PGID
+        value: 1000
+      # - name: TZ
+      #   value: xxx
+      - name: PASSWORD
+        value: password
+      - name: SUDO_PASSWORD
+        value: sudopassword
+      # - PROXY_DOMAIN=code-server.my.domain #optional
+      # - DEFAULT_WORKSPACE=/config/workspace #optional
+      ports:
+      - containerPort: 8080
+        name: http
+        hostPort: 8080
+      - containerPort: 8443
+        name: http
+        hostPort: 8443
+      volumeMounts:
+      - name: home-dir
+        mountPath: /home/coder/project
+      - name: code-server-share
+        mountPath: /home/coder/.local/share/code-server
+      securityContext: # workaround until --userns=keep-id is available
+        runAsUser: 0
+        seLinuxOptions:
+          type: spc_t
+  volumes:
+  - name: home-dir
+    hostPath:
+      path: /home/user
+  - name: code-server-share
+    hostPath:
+      path: /home/user/.local/share/code-server

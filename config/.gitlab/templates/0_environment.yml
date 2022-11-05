@@ -1,0 +1,27 @@
+# Templates
+###############################################################################
+.environment:
+  stage: environment
+  extends:
+    - .global-extend
+
+.environment-common:
+  services:
+    - []
+  before_script:
+    - !reference [.global-common, before_script]
+    - echo "Template Not Implemented"
+  script:
+    - !reference [.global-common, script]
+    - echo "Template Not Implemented"
+  after_script:
+    - echo "Template Not Implemented"
+    - !reference [.global-common, after_script]
+  cache:
+    - !reference [.global-common, cache]
+  needs:
+    - []
+  rules:
+    - !reference [.global-common, rules]
+    - when: always # For environment
+

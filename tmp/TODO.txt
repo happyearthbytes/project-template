@@ -1,0 +1,56 @@
+# x  (A) description of todo item +tag @context
+# |   |             |               |     |
+# done priority    task text         tag  context
+
+(A) local packages - vs containers: k3s? vs local-node? +research
+(B) add .gitconfig to setup.sh +code
+(B) add bashrc - <https://esbitbucket.goldlnk.rootlnka.net/users/joseph.dipilato/repos/bashrc/browse?at=refs%2Fheads%2Fdevelop>
+(B) update gitignore https://www.toptal.com/developers/gitignore/api/visualstudiocode
+
+(B) add the ability to bring the network up / down?
+(B) add vscode extensions to setup +download
+(B) deploy a local gitlab instance +devops
+(B) Rancher Desktop +dev
+
+(C) setup git lfs in config
+(C) add .prettierrc / prettier.config.js / .prettierrc.yml
+(C) add .markdownlint.json
+(C) make local helm chart
+(C) add elastic search / graphana
+(C) add debugging interface for a C++ app
+(C) configure default build / test settings.json
+(C) create online server deploy script?
+(C) add containerized tests
+(C) add extensions to .devcontainer +code
+(C) install all dependencies of vscode extensions +download autopep8 kubectl node.js jdk
+(D) add .proto
+(P) add auto changelog generation +efficiency
+
+<https://code.visualstudio.com/remote/advancedcontainers/use-docker-kubernetes>
+minikube in docker
+<https://github.com/microsoft/vscode-dev-containers/tree/main/containers/kubernetes-helm-minikube>
+<https://github.com/Microsoft/vscode-dev-containers/tree/main/containers/kubernetes-helm>
+<https://code.visualstudio.com/docs/devcontainers/containers>
+<https://github.com/microsoft/vscode-dev-containers>
+
+(H) Learn Java
+(H) Learn JavaScript
+(H) Learn C++
+(H) Learn Golang
+(H) Learn Rust
+
+(Z) use poetry for python?
+(Z) don't fix linting yet - wait for CI/CD to catch it +fix
+
+online_setup
+install git
+install podman
+install vscode
+download everything
+
+offline_setup
+install local:
+git
+vscode
+podman
+(everything else container?)

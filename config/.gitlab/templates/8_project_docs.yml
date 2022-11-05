@@ -1,0 +1,25 @@
+# Templates
+###############################################################################
+.project-docs:
+  stage: project-docs
+  extends:
+    - .global-extend
+
+.project-docs-common:
+  services:
+    - []
+  before_script:
+    - !reference [.global-common, before_script]
+    - echo "Template Not Implemented"
+  script:
+    - !reference [.global-common, script]
+    - echo "Template Not Implemented"
+  after_script:
+    - echo "Template Not Implemented"
+    - !reference [.global-common, after_script]
+  cache:
+    - !reference [.global-common, cache]
+  needs:
+    - []
+  rules:
+    - !reference [.global-common, rules]

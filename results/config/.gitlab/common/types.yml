@@ -1,0 +1,32 @@
+###############################################################################
+# STAGES
+###############################################################################
+stages:
+  - triggers # Special triggers or checks
+  - build-requirements # Check for occasional updates required before building
+      # (e.g. build container generation) 
+  - pre-build # Steps always required before building
+  - build # Build the software
+  - archive # Archive the results of the build pass or fail
+  - scan # Perform 'scaning' operations on the software
+      # Includes any static analysis or metrics.  
+  - code-docs # Generate automated source code documentation
+  - project-docs # Generate project level documentation
+  - test # Perform software tests (unit tests)
+  - publish # Publish the build artifacts to a repository
+  - verify # Perform software verification operations
+      # (Systems integration / Requirements testing)
+  - release # Perform any formal release operations
+  - deploy # Deploy the software into an operational environment
+  - environment # Perform any environment logging or checking
+
+###############################################################################
+# WORKFLOW
+###############################################################################
+# Read more on when to use this template at reference:
+#  https://docs.gitlab.com/ee/ci/yaml/#workflowrules
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+

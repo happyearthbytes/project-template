@@ -1,0 +1,26 @@
+###############################################################################
+# INCLUDE
+###############################################################################
+include:
+  - local: "config/gitlab/stages/0_environment.yml"
+  - local: "config/gitlab/stages/1_triggers.yml"
+  - local: "config/gitlab/stages/2_build_requirements.yml"
+  - local: "config/gitlab/stages/3_pre_build.yml"
+  - local: "config/gitlab/stages/4_build.yml"
+  - local: "config/gitlab/stages/5_archive.yml"
+  - local: "config/gitlab/stages/6_scan.yml"
+  - local: "config/gitlab/stages/7_code_docs.yml"
+  - local: "config/gitlab/stages/8_project_docs.yml"
+  - local: "config/gitlab/stages/9_test.yml"
+  - local: "config/gitlab/stages/10_publish.yml"
+  - local: "config/gitlab/stages/11_verify.yml"
+  - local: "config/gitlab/stages/12_release.yml"
+  - local: "config/gitlab/stages/13_deploy.yml"
+
+# TODO import scripts based on rules?
+# job1:
+#   script:
+#     - echo "This job runs in merge request pipelines"
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+

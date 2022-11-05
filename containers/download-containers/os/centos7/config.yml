@@ -1,0 +1,4 @@
+image_name: download
+image_tag: centos.7
+build_context: .
+requirements: ../../../../scripts/container

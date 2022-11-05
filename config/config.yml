@@ -1,0 +1,9 @@
+project_name: Example Project
+version_file: VERSION
+license_file: docs/LICENSE
+readme_file: README.md
+homepage_url: url
+summary: Top level project description
+package_contact: me
+package_vendor: company
+env_file: env.yaml
