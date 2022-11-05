@@ -35,7 +35,7 @@ echo "Node:  " "${NODE_ARGS[@]}"
 podman network create k3s-network
 
 # podman kube generate
-podman kube play --replace --network k3s-network k3s.yml
+podman --cgroup-manager cgroupfs kube play --replace --cgroupns host --network k3s-network k3s.yml
 
 
 # --hostname
