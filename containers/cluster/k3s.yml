@@ -29,7 +29,6 @@ spec:
       name: k3s-volume
     - mountPath: /output
       name: k3s-host
-
   - command:
     - node
     name: k3s-server
@@ -46,6 +45,13 @@ spec:
     resources: {}
     securityContext:
       privileged: true
+    volumeMounts:
+    - mountPath: /run
+      name: tempfs
+      subPath: run
+    - mountPath: /var/run
+      name: tempfs
+      subPath: var-run
   restartPolicy: Always
   volumes:
     - name: k3s-volume
@@ -53,3 +59,7 @@ spec:
       hostPath:
         path: /Users/josephdipilato/Documents/thing/repos/project-template/containers/cluster
         type: Directory
+    - name: tmpfs
+      emptyDir:
+        medium: Memory
+        sizeLimit: 64Mi
