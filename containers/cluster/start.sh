@@ -32,10 +32,10 @@ echo "Worker:" "${WORKER_ARGS[@]}"
 echo "Node:  " "${NODE_ARGS[@]}"
 
 # podman volume create k3s-server-volume
-# podman network create k3s-network
+podman network create k3s-network
 
 # podman kube generate
-podman kube play --replace k3s.yml
+podman kube play --replace --network k3s-network k3s.yml
 
 
 # --hostname

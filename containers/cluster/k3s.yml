@@ -9,16 +9,15 @@ spec:
   - command:
     - k3s
     - server
+    - --agent-token
+    - aaa
     - --disable-agent
+    - --config
+    - /output/kubeconfig.yaml
+    - --write-kubeconfig-mode
+    - "666"
     name: server
     image: k3s:server
-    env:
-    # - name: K3S_CLUSTER_SECRET
-    #   value: somethingtotallyrandom
-    - name: K3S_KUBECONFIG_OUTPUT
-      value: /output/kubeconfig.yaml
-    - name: K3S_KUBECONFIG_MODE
-      value: "666"
     ports:
     - containerPort: 6443
       hostPort: 6443
@@ -33,17 +32,16 @@ spec:
       name: k3s-host
   - command:
     - k3s
-    - server
+    - agent
+    - --token
+    - aaa
+    - --server
+    - https://k3s-server:6443
     name: worker
     image: k3s:worker
-    env:
-    # - name: K3S_CLUSTER_SECRET
-    #   value: somethingtotallyrandom
-    - name: K3S_URL
-      value: https://k3s-server:6443
     ports:
-    - containerPort: 6443
-      hostPort: 6443
+    - containerPort: 6442
+      hostPort: 6442
       protocol: TCP
     resources: {}
     securityContext:
