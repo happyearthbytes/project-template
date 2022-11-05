@@ -10,11 +10,11 @@ spec:
     - k3s
     - server
     - --disable-agent
-    name: k3s-server
+    name: server
     image: k3s:server
     env:
-    - name: K3S_CLUSTER_SECRET
-      value: somethingtotallyrandom
+    # - name: K3S_CLUSTER_SECRET
+    #   value: somethingtotallyrandom
     - name: K3S_KUBECONFIG_OUTPUT
       value: /output/kubeconfig.yaml
     - name: K3S_KUBECONFIG_MODE
@@ -34,11 +34,11 @@ spec:
   - command:
     - k3s
     - server
-    name: k3s-worker
+    name: worker
     image: k3s:worker
     env:
-    - name: K3S_CLUSTER_SECRET
-      value: somethingtotallyrandom
+    # - name: K3S_CLUSTER_SECRET
+    #   value: somethingtotallyrandom
     - name: K3S_URL
       value: https://k3s-server:6443
     ports:
