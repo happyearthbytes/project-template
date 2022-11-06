@@ -35,9 +35,9 @@ echo "Node:  " "${NODE_ARGS[@]}"
 #
 
 # podman pod create --cgroup-parent=host --name k3s-pod
-podman pod create --name k3s-pod
+# podman pod create --name k3s-pod
 podman network create k3s-network
-podman run --pod k3s-pod --env-file .env --replace --name k3s-server --rm \
+podman run --env-file .env --replace --name k3s-server --rm \
   --detach \
   --stop-timeout 3 --timeout 1000 --network k3s-network \
   --volume k3s-server-volume:/var/lib/rancher/k3s \
@@ -47,13 +47,18 @@ podman run --pod k3s-pod --env-file .env --replace --name k3s-server --rm \
   --token aaa \
   --disable-agent \
   --config /output/kubeconfig.yaml \
-  --write-kubeconfig-mode "666"
-podman run --pod k3s-pod --env-file .env --replace --name k3s-worker --rm \
+  --write-kubeconfig-mode "666" --node-name k3s-server
+# podman run --env-file .env --replace --name k3s-worker --rm \
+#   --detach \
+#   --requires k3s-server \
+#   --stop-timeout 3 --timeout 1000 --network k3s-network --tmpfs /run \
+#   --tmpfs /var/run --privileged --cgroupns=host k3s:worker agent \
+#   --token aaa --server https://k3s-server:6443
+podman run --env-file .env --replace --name k3s-worker --rm \
   --detach \
   --requires k3s-server \
   --stop-timeout 3 --timeout 1000 --network k3s-network --tmpfs /run \
-  --tmpfs /var/run --privileged --cgroupns=host k3s:worker agent \
-  --token aaa --server https://k3s-server:6443
+  --tmpfs /var/run --privileged --cgroupns=host --entrypoint '' k3s:worker sleep 10000
 
 
 # While I tried to get this to work on OSX, the inability to modify the podman
