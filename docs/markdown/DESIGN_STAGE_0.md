@@ -15,7 +15,7 @@ git clone <url>.git
 ```bash
 make setup-bootstrap
 # - OR -
-./setup.sh --type bootstrap
+./setup.sh --env bootstrap
 # - OR -
 make setup # Interactive select bootstrap
 # - OR -

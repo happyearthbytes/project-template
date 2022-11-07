@@ -88,7 +88,6 @@ _get_setup_functions()
 ###############################################################################
 g_argparse()
 {
-  _ENV_FLAG=dev
   while [[ $# -gt 0 ]]; do
     key="$1"
     case $key in
@@ -105,11 +104,22 @@ g_argparse()
   done
 }
 
+
+
+
 ###############################################################################
 # MAIN
 ###############################################################################
 _main() {
   . "${__RUN_ARGPARSE}"
+
+  if [ -z "${_ENV_FLAG}" ]; then
+    local select_from=("bootstrap" "online-cicd")
+    local -r selection=$(__user_select "${select_from[@]}" "Select your environment:")
+  fi
+  _ENV_FLAG=${selection}
+  echo "$_ENV_FLAG"
+  exit
   _SETUP_ENVIRONMENT_TYPE=${_ENV_FLAG}
   _get_setup_functions
   ${f_SETUP_CMD}

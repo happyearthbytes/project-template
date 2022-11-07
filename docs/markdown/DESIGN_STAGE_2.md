@@ -8,7 +8,7 @@
 ```bash
 make setup-online-cicd
 # - OR -
-./setup.sh --type online-cicd
+./setup.sh --env online-cicd
 # - OR -
 make setup # Interactive select online-cicd
 # - OR -
