@@ -1,17 +1,16 @@
-PROJECT_NAME := "my-proj" ## The name of the project
-VERSION := "0.x.0" ## A string name of the version
-USERNAME := $(shell id -un) ## The username to use
-ARGS := ## Generic interface for inputing arguments
+PROJECT_NAME := "my-proj" ## The name of the project - TODO parse from file
+VERSION := "0.x.0" ## A string name of the version - TODO parse from file
+USERNAME := $(shell id -un) ## The username to use - TODO set in include
+ARGS := ## Generic interface for inputing arguments - TODO set in include
 include scripts/make/common.mak
 include scripts/make/basic.mak
+include scripts/make/extras.mak
 
-.PHONY: help install
+.PHONY: help
 
-a_command: ## do a command
+run_a_command: ## Run a command
 	@echo todo
-another_command: # do another command
+run_another_command: ## Run another command
 	@echo todo
-compress: # do another command
-	@./scripts/tools/compress.sh --compress --input . --output ~/compressed.txt ${ARGS}
-extract: # do another command
-	@./scripts/tools/compress.sh --extract --input ~/compressed.txt --output ~/extracted ${ARGS}
+run_an_advanced_command: # Run an advanced command
+	@echo todo

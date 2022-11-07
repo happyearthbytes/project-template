@@ -26,28 +26,32 @@ endif
 THIS_FILE=$(shell echo $(MAKEFILE_LIST) | cut -f1 -d' ')
 OTHER_FILE=$(shell echo $(MAKEFILE_LIST) | awk '{ $$1=""; print $0}' )
 
+_ECHO_FLAG="" #"-e"
+
 default: help-default
 help-default: # Display default make command options
-	@echo -e "$(TEXT_BOLD)Make command options for ${TEXT_SPECIAL}${PROJECT_NAME} ${VERSION}$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "$(TEXT_BOLD)Make command options for ${TEXT_SPECIAL}${PROJECT_NAME} ${VERSION}$(TEXT_RESET)"
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:.*?## .*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(TEXT_ITEM)$(TEXT_BOLD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:.*?## .*$$" $(OTHER_FILE) | sed 's/[^:]*://' | awk 'BEGIN {FS = ":.*?## "}; {printf "$(TEXT_ITEM)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
 	@echo ""
 help: help-default ## Display make command options
-	@echo -e "$(TEXT_BOLD)${TEXT_UNDER}Variables:$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "$(TEXT_BOLD)${TEXT_UNDER}Variables:$(TEXT_RESET)"
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+ *:= *[^#]*## .*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":="}; {printf "$(TEXT_ITEM)$(TEXT_SPECIAL)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
 	@echo ""
-	@echo -e "$(TEXT_BOLD)${TEXT_UNDER}Advanced Make Targets:$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "$(TEXT_BOLD)${TEXT_UNDER}Advanced Make Targets:$(TEXT_RESET)"
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:[^#]*# .*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":.*?# "}; {printf "$(TEXT_BAD)$(TEXT_BOLD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
+	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:[^#]*# .*$$" $(OTHER_FILE) | sed 's/[^:]*://' | awk 'BEGIN {FS = ":.*?# "}; {printf "$(TEXT_BAD)%-30s$(TEXT_RESET) %s\n", $$1, $$2}'
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:[^#]*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":.* "}; {printf "$(TEXT_BAD)$(TEXT_BOLD)%-30s$(TEXT_RESET) ${TEXT_ITALIC}%s$(TEXT_RESET)\n", $$1, $$2}'
+	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+:[^#]*$$" $(OTHER_FILE) | sed 's/[^:]*://' | awk 'BEGIN {FS = ":.* "}; {printf "$(TEXT_BAD)%-30s$(TEXT_RESET) ${TEXT_ITALIC}%s$(TEXT_RESET)\n", $$1, $$2}'
 	@echo ""
-	@echo -e "$(TEXT_BOLD)${TEXT_UNDER}Advanced Variables:$(TEXT_RESET)"
+	@echo ${_ECHO_FLAG} "$(TEXT_BOLD)${TEXT_UNDER}Advanced Variables:$(TEXT_RESET)"
 	@echo ""
 	@grep -E "^[0-9a-zA-Z_-]+ *:= *[^#]*$$" $(THIS_FILE) | awk 'BEGIN {FS = ":="}; {printf "$(TEXT_ITEM)$(TEXT_SPECIAL)%-30s$(TEXT_RESET) ${TEXT_ITALIC}%s$(TEXT_RESET)\n", $$1, $$2}'
 	@echo ""
