@@ -1,3 +1,3 @@
-### STAGE-4: have integrated DSO environment on an airgapped system
+# STAGE-4: have integrated DSO environment on an air-gapped system
 
 * TBD

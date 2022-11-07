@@ -1,5 +1,5 @@
 
-# STAGE-3: set up a k3s cluster on an airgapped system
+# STAGE-3: set up a k3s cluster on an air-gapped system
 
 ## Start: A local repository, podman archive, IDE archive (2)
 

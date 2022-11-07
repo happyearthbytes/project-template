@@ -1,5 +1,5 @@
 
-# STAGE-2: setup CICD to generate and host prerequisites (online)
+# STAGE-2: setup CI/CD to generate and host prerequisites (online)
 
 ## Start: A local repository, podman archive, IDE archive (1)
 
@@ -19,15 +19,15 @@ make setup ARGS="--type online-cicd"
 
 * podman run gitlab
 
-## Performs: Use gitlab to generate standard prerequisites in CICD (2)
+## Performs: Use gitlab to generate standard prerequisites in CI/CD (2)
 
 * TODO - automate gitlab provisioning
 * MANUAL - set up gitlab and create pipeline for repo
 
-## Performs: Use gitlab to generate additional prerequisites in CICD (2)
+## Performs: Use gitlab to generate additional prerequisites in CI/CD (2)
 
-* gitlab pipeline runs based in CICD rules
+* gitlab pipeline runs based in CI/CD rules
 
-## Produces: hosted prerequisites in CICD (2)
+## Produces: hosted prerequisites in CI/CD (2)
 
 * gitlab pipeline automatically generates and hosts artifacts on gitlab
