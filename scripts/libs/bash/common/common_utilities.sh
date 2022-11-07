@@ -37,13 +37,17 @@ __select_command() {
   echo "${selected_command}"
 }
 
+# Example:
+# local select_from=(select_1 select_2 select_3)
+# local -r selection=$(__user_select "${select_from[@]}" "My prompt:")
+# [ -z "${selection}" ] && exit 0
 __user_select () {
   local selection_list=${@:1:$#-1}
   local prompt=${@:$#}
   local selected_item
   PS3="$prompt "
   while [ -z "${selected_item}" ]; do
-    select opt in $selection_list "Quit"; do
+    select opt in "Quit" $selection_list; do
       [ -z $opt ] && break
       selected_item=${opt}
       break

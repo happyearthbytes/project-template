@@ -38,38 +38,38 @@ _clean_install_vscode()
 ###
 # online
 ###
-_setup_online_t()
+_setup_online_cicd_t()
 {
   echo "Not implemented"
 }
-l_decorate d_debug _setup_online_t _setup_online
+l_decorate d_debug _setup_online_cicd_t _setup_online_cicd
 
 ###
-# dev
+# bootstrap
 ###
 # These are not part of the formal environment
 # shellcheck disable=SC2034
-PACKAGES_dev=(
+PACKAGES_bootstrap=(
   make
   podman
   # codium
   code
 )
-_setup_dev_t()
+_setup_bootstrap_t()
 {
   _online_install_vscode
   __update_repos "${a_REPOS[@]}"
   __install_from_web "${a_PACKAGES[@]}"
   _clean_install_vscode
 }
-l_decorate d_debug _setup_dev_t _setup_dev
+l_decorate d_debug _setup_bootstrap_t _setup_bootstrap
 
 ###
 # FACTORY
 ###
 _get_setup_functions()
 {
-  local match=(dev online offline)
+  local match=(bootstrap online_cicd)
   local suffix=${_SETUP_ENVIRONMENT_TYPE}
   if [[ ! " ${match[@]} " =~ " ${suffix} " ]]; then
     >&2 echo "Error: Invalid environment type: ${suffix}"
@@ -111,15 +111,12 @@ g_argparse()
 # MAIN
 ###############################################################################
 _main() {
-  . "${__RUN_ARGPARSE}"
-
+  source "${__RUN_ARGPARSE}"
   if [ -z "${_ENV_FLAG}" ]; then
-    local select_from=("bootstrap" "online-cicd")
-    local -r selection=$(__user_select "${select_from[@]}" "Select your environment:")
+    local select_from=(bootstrap online_cicd)
+    _ENV_FLAG=$(__user_select "${select_from[@]}" "Select your environment:")
+    [ -z "${_ENV_FLAG}" ] && exit 0
   fi
-  _ENV_FLAG=${selection}
-  echo "$_ENV_FLAG"
-  exit
   _SETUP_ENVIRONMENT_TYPE=${_ENV_FLAG}
   _get_setup_functions
   ${f_SETUP_CMD}

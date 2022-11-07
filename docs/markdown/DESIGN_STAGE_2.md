@@ -6,13 +6,13 @@
 ## Performs: Install Podman and IDE from local archive (1)
 
 ```bash
-make setup-online-cicd
+make setup-online_cicd
 # - OR -
-./setup.sh --env online-cicd
+./setup.sh --env online_cicd
 # - OR -
-make setup # Interactive select online-cicd
+make setup # Interactive select online_cicd
 # - OR -
-./setup.sh # Interactive select online-cicd
+./setup.sh # Interactive select online_cicd
 ```
 
 * Use package manager to install IDE / Podman from local archive

@@ -6,9 +6,9 @@ TOOLS_SCRIPTS = $(ROOT_DIR)/scripts/tools
 setup-bootstrap: setup-bootstrap-args setup ## Set up your environment to boostrap the process
 setup-bootstrap-args:
   ARGS="--env bootstrap"
-setup-online-cicd: setup-online-cicd-args setup ## Set up a local cicd instance
-setup-online-cicd-args:
-  ARGS="--env online-cicd"
+setup-online_cicd: setup-online_cicd-args setup ## Set up a local cicd instance
+setup-online_cicd-args:
+  ARGS="--env online_cicd"
 setup: ## Perform setup operations - Interactive
 	@./setup.sh ${ARGS}
 # Download
