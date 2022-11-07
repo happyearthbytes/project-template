@@ -57,15 +57,3 @@ __user_select () {
   [ "${selected_item}" == "Quit" ] && return
   echo "${selected_item}"
 }
-
-# Example:
-# TODO
-g_INPUT_DICT=
-g_OUTPUT_VAL=
-__dict_get () {
-  local input_key=$1
-  for section in ${g_INPUT_DICT[@]}; do
-    echo "$section"
-  done
-  g_OUTPUT_VAL="A"
-}
