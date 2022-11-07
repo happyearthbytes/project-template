@@ -57,6 +57,11 @@ PACKAGES_bootstrap=(
 )
 _setup_bootstrap_t()
 {
+  # TODO support for multiple OSs
+  if [ ! -e /etc/os-release ]; then
+    __log "OS not supported"
+    exit 1
+  fi
   _online_install_vscode
   __update_repos "${a_REPOS[@]}"
   __install_from_web "${a_PACKAGES[@]}"
@@ -102,21 +107,19 @@ g_argparse()
         ;;
     esac
   done
+  if [ -z "${_ENV_FLAG}" ]; then
+    local select_from=(bootstrap online_cicd)
+    _ENV_FLAG=$(__user_select "${select_from[@]}" "Select your environment:")
+    [ -z "${_ENV_FLAG}" ] && exit 0
+  fi
 }
-
-
-
 
 ###############################################################################
 # MAIN
 ###############################################################################
 _main() {
   source "${__RUN_ARGPARSE}"
-  if [ -z "${_ENV_FLAG}" ]; then
-    local select_from=(bootstrap online_cicd)
-    _ENV_FLAG=$(__user_select "${select_from[@]}" "Select your environment:")
-    [ -z "${_ENV_FLAG}" ] && exit 0
-  fi
+
   _SETUP_ENVIRONMENT_TYPE=${_ENV_FLAG}
   _get_setup_functions
   ${f_SETUP_CMD}

@@ -1,2 +1,0 @@
-DOXYGEN="doxygen"
-${DOXYGEN} Doxyfile

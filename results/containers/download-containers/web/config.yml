@@ -1,3 +1,0 @@
-image_name: download
-image_tag: web
-build_context: .

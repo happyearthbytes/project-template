@@ -13,9 +13,9 @@ setup: ## Perform setup operations - Interactive
 	@./setup.sh ${ARGS}
 # Download
 #-------------------------------------------------------------------------------
-download-online-deps: download-online-deps-args download ## Download dependencies while in an online environment
-download-online-deps-args:
-	$(eval ARGS := "--type online-deps")
+download-online_deps: download-online_deps-args download ## Download dependencies while in an online environment
+download-online_deps-args:
+	$(eval ARGS := "--type online_deps")
 download: ## Download packages locally - Interactive
 	@$(TOOLS_SCRIPTS)/download.sh ${ARGS}
 # Other

@@ -10,7 +10,7 @@
 ## Performs: Use podman to download a podman archive to an image
 
 ```bash
-make download-online-deps
+make download-online_deps ARGS="--os Rocky_Linux_9"
 # - OR -
 make download # interactive select online-deps
 ```

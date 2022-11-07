@@ -1,9 +1,0 @@
-apply plugin: 'java'
-apply plugin: 'application'
-
-mainClassName = 'hello.HelloWorld'
-
-jar {
-  baseName = 'dummy_name'
-  version = '1.2.3'
-}

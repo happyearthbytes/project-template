@@ -1,4 +1,0 @@
-image_name: download
-image_tag: rocky.9
-build_context: .
-requirements: ../../../../scripts/container
