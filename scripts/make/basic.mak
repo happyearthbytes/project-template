@@ -5,17 +5,17 @@ TOOLS_SCRIPTS = $(ROOT_DIR)/scripts/tools
 #-------------------------------------------------------------------------------
 setup-bootstrap: setup-bootstrap-args setup ## Set up your environment to boostrap the process
 setup-bootstrap-args:
-  ARGS="--env bootstrap"
+	$(eval ARGS := "--env bootstrap")
 setup-online_cicd: setup-online_cicd-args setup ## Set up a local cicd instance
 setup-online_cicd-args:
-  ARGS="--env online_cicd"
+	$(eval ARGS := "--env online_cicd")
 setup: ## Perform setup operations - Interactive
 	@./setup.sh ${ARGS}
 # Download
 #-------------------------------------------------------------------------------
 download-online-deps: download-online-deps-args download ## Download dependencies while in an online environment
 download-online-deps-args:
-  ARGS="--type online-deps"
+	$(eval ARGS := "--type online-deps")
 download: ## Download packages locally - Interactive
 	@$(TOOLS_SCRIPTS)/download.sh ${ARGS}
 # Other
