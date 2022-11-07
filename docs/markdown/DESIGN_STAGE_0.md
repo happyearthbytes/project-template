@@ -13,11 +13,13 @@ git clone <url>.git
 ## Performs: download a local archive of podman and IDE
 
 ```bash
-./setup.sh --type bootstrap
-# - OR -
 make setup-bootstrap
 # - OR -
-make setup ARGS="--type bootstrap"
+./setup.sh --type bootstrap
+# - OR -
+make setup # Interactive select bootstrap
+# - OR -
+./setup.sh # Interactive select bootstrap
 ```
 
 * Dynamically identify package manager with `bash` - TODO `sh`

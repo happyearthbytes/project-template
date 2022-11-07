@@ -12,7 +12,7 @@
 ```bash
 make download-online-deps
 # - OR -
-make download ARGS="--type online-deps"
+make download # interactive select online-deps
 ```
 
 * Select base OS based on install target
