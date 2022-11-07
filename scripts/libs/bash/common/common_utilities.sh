@@ -29,8 +29,9 @@ __print_header() {
 # $(__select_command ${select_from[@]})
 __select_command() {
   local command_list="${*}"
+
   local selected_command=
-  for this_command in "${command_list[@]}"; do
+  for this_command in ${command_list}; do
       selected_command=$(command -v "${this_command}")
       [ ! -z "${selected_command}" ] && break
   done

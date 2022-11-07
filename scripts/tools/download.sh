@@ -38,7 +38,7 @@ declare -a _DOWNLOAD_PREREQS=(
 _setup_download() {
   local select_from=(podman docker buildah echo)
   __set_container_tool $(__select_command ${select_from[@]})
-  __select_command ${select_from[@]}
+  __select_command "${select_from[@]}"
 }
 _prepare_download_images() {
   __download_containers_from_web ${_PREBUILT_CONTAINERS[@]}
@@ -97,10 +97,7 @@ g_argparse()
 _main() {
   source "${__RUN_ARGPARSE}"
 
-  echo "AAAAA"
   _setup_download
-    echo "AVV"
-
   _prepare_download_images
   _build_download_images
   _save_download_images
