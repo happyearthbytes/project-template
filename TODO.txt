@@ -2,10 +2,12 @@
 # |   |             |               |     |
 # done priority    task text         tag  context
 
+(A) get cicd working as fast as possible
 (A) local packages - vs containers: k3s? vs local-node? +research
 (B) add .gitconfig to setup.sh +code
 (B) add bashrc - <https://esbitbucket.goldlnk.rootlnka.net/users/joseph.dipilato/repos/bashrc/browse?at=refs%2Fheads%2Fdevelop>
 (B) update gitignore https://www.toptal.com/developers/gitignore/api/visualstudiocode
+(A) use coding style guides for bash functions / variables / etc
 
 (B) add the ability to bring the network up / down?
 (B) add vscode extensions to setup +download

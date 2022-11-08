@@ -14,7 +14,7 @@ __set_package_download_dir()
 }
 __clean_downloads()
 {
-  rm ${PACKAGE_DOWNLOAD_DIR}/*
+  rm "${PACKAGE_DOWNLOAD_DIR}"/*
 }
 
 ###############################################################################
@@ -24,7 +24,7 @@ __pkg_tool()
 {
   # Return if already defined
   if [ ! -z "${DOWNLOAD_TOOL}" ]; then
-    echo ${DOWNLOAD_TOOL}; return
+    echo "${DOWNLOAD_TOOL}"; return
   fi
   DOWNLOAD_TOOLS=(
     dnf
@@ -35,9 +35,9 @@ __pkg_tool()
     ""
   )
   for this_download_tool in "${DOWNLOAD_TOOLS[@]}"; do
-    DOWNLOAD_TOOL=$(command -v ${this_download_tool})
+    DOWNLOAD_TOOL=$(command -v "${this_download_tool}")
     if [ ! -z "${DOWNLOAD_TOOL}" ]; then
-      echo ${DOWNLOAD_TOOL}; return
+      echo "${DOWNLOAD_TOOL}"; return
     fi
   done
 }
@@ -46,7 +46,7 @@ __pkg_tool_ver()
 {
   # Return if there is no command
   if [ -z "${DOWNLOAD_TOOL}" ] || [ ! -z "${DOWNLOAD_TOOL_VERSION}" ]; then
-    echo ${DOWNLOAD_TOOL_VERSION}; return
+    echo "${DOWNLOAD_TOOL_VERSION}"; return
   fi
   case ${DOWNLOAD_TOOL} in
     *dnf | *yum)
@@ -64,7 +64,7 @@ __pkg_tool_ver()
     *)
       ;;
   esac
-  echo ${DOWNLOAD_TOOL_VERSION}; return
+  echo "${DOWNLOAD_TOOL_VERSION}"; return
 }
 
 #######################################
@@ -74,9 +74,9 @@ __pkg_get_all_deps_dnf()
 {
   PACKAGES=$@
   # PACKAGE_NAMES=$(_sudo ${DOWNLOAD_TOOL} list --available ${PACKAGES[@]} | tail -n +3 | awk '{print $1}')
-  PACKAGE_NAMES=$(_sudo ${DOWNLOAD_TOOL} repoquery --available --quiet ${PACKAGES[@]})
+  PACKAGE_NAMES=$(_sudo "${DOWNLOAD_TOOL}" repoquery --available --quiet ${PACKAGES[@]})
   # Reqursively list all dependencies
-  DEPENDENCIES=$(_sudo ${DOWNLOAD_TOOL} repoquery --arch x86_64 --arch noarch --quiet --requires --recursive --resolve ${PACKAGES[@]} | sed -e '/langpack-en/ s/.*/%&/' -e '/^[^%].*langpack-[a-z]/ d' -e '/^%/ s/^%//')
+  DEPENDENCIES=$(_sudo "${DOWNLOAD_TOOL}" repoquery --arch x86_64 --arch noarch --quiet --requires --recursive --resolve ${PACKAGES[@]} | sed -e '/langpack-en/ s/.*/%&/' -e '/^[^%].*langpack-[a-z]/ d' -e '/^%/ s/^%//')
   RVAL=(
   ${PACKAGE_NAMES}
   ${DEPENDENCIES}
@@ -86,8 +86,8 @@ __pkg_get_all_deps_dnf()
 __pkg_get_new_deps_dnf()
 {
   PACKAGES=$@
-  RVAL=$(_sudo ${DOWNLOAD_TOOL} list --available ${PACKAGES[@]} | tail -n +3 | awk '{print $1}')
-  echo ${RVAL}
+  RVAL=$(_sudo "${DOWNLOAD_TOOL}" list --available ${PACKAGES[@]} | tail -n +3 | awk '{print $1}')
+  echo "${RVAL}"
 }
 __pkg_download_dnf()
 {
@@ -95,14 +95,14 @@ __pkg_download_dnf()
   RVAL="_sudo ${DOWNLOAD_TOOL} -y --allowerasing --downloadonly\
     --destdir ${PACKAGE_DOWNLOAD_DIR}\
     install ${PACKAGES[@]}"
-  echo ${RVAL}
+  echo "${RVAL}"
 }
 __pkg_get_url_dnf()
 {
   PACKAGES=$@
   # list download url
   RVAL=$(dnf download --url ${PACKAGES[@]})
-  echo ${RVAL}
+  echo "${RVAL}"
 }
 
 #######################################
@@ -242,8 +242,7 @@ __download_dependencies()
 ###############################################################################
 # Install
 ###############################################################################
-__install_from_web ()
-{
+__install_from_web () {
   PACKAGES=$@
   echo "Installing: ${PACKAGES[@]}"
   __sudo dnf install -y ${PACKAGES[@]}
@@ -274,21 +273,21 @@ __update_repos ()
 {
   REPOS=$@
   if [ ${#REPOS} == 0 ]; then return; fi
-  sudo dnf config-manager `echo "${REPOS[@]}" | sed -e 's/ / --add-repo /g' -e 's/^/--add-repo /'`
+  sudo dnf config-manager $(echo "${REPOS[@]}" | sed -e 's/ / --add-repo /g' -e 's/^/--add-repo /')
   dnf makecache
 }
 __remove_repos ()
 {
   REPOS=$@
-  __sudo rm `echo " ${REPOS[@]}" | sed -e 's| *[^ ]*/| /etc/yum.repos.d/|g'` || true
+  __sudo rm $(echo " ${REPOS[@]}" | sed -e 's| *[^ ]*/| /etc/yum.repos.d/|g') || true
 }
 __make_local_repo()
 {
   REPO_NAME=$1
   REPO_FILE="/etc/yum.repos.d/${REPO_NAME}.repo"
-  createrepo_c ${PACKAGE_DOWNLOAD_DIR}
-  repo2module ${PACKAGE_DOWNLOAD_DIR} ${PACKAGE_DOWNLOAD_DIR}/modules.yaml
-  cat << EOF  | sudo tee ${REPO_FILE} > /dev/null
+  createrepo_c "${PACKAGE_DOWNLOAD_DIR}"
+  repo2module "${PACKAGE_DOWNLOAD_DIR}" "${PACKAGE_DOWNLOAD_DIR}"/modules.yaml
+  cat << EOF  | sudo tee "${REPO_FILE}" > /dev/null
 [${REPO_NAME}]
 name=${REPO_NAME}
 baseurl=file:///${PACKAGE_DOWNLOAD_DIR}
@@ -296,11 +295,11 @@ enabled=1
 gpgcheck=0
 protect=1
 EOF
-  __update_repos ${REPO_FILE}
+  __update_repos "${REPO_FILE}"
 }
 #=================
 _add_stream_repo()
 {
   __sudo sed -s -i '\|http://artifactory.devlnk.net/artifactory/centos-remote| s|\($releasever\)/|\1-stream/|' /etc/yum.repos.d/*
-  __update_repos `grep -lr "artifactory.devlnk.net" /etc/yum.repos.d/`
+  __update_repos $(grep -lr "artifactory.devlnk.net" /etc/yum.repos.d/)
 }

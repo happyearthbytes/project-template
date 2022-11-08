@@ -4,7 +4,7 @@
     {
       "type": "bashdb",
       "request": "launch",
-      "name": "Bash-Debug (compress)",
+      "name": "Bash (compress)",
       "cwd": "${workspaceFolder}",
       "program": "${workspaceFolder}/scripts/tools/compress.sh",
       "args": ["--input", "TODO.txt", "--compress", "--verbose"]
@@ -12,10 +12,26 @@
     {
       "type": "bashdb",
       "request": "launch",
-      "name": "Bash-Debug (download)",
+      "name": "Bash (download-online_deps)",
       "cwd": "${workspaceFolder}",
       "program": "${workspaceFolder}/scripts/tools/download.sh",
       "args": ["--type","online_deps","--os","Rocky_Linux_9"]
+    },
+    {
+      "type": "bashdb",
+      "request": "launch",
+      "name": "Bash (setup-bootstrap)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/scripts/tools/setup.sh",
+      "args": ["--env", "bootstrap"]
+    },
+    {
+      "type": "bashdb",
+      "request": "launch",
+      "name": "Bash (setup-online_cicd)",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/scripts/tools/setup.sh",
+      "args": ["--env", "online_cicd"]
     },
   ],
   "inputs": [

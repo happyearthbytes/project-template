@@ -12,7 +12,7 @@ source "$(dirname "${BASH_SOURCE}")"/tool_common_include.sh
 ###
 # Utilities
 ###
-_online_install_vscode()
+_prepare_install_vscode()
 {
   if [ -z "${INSTALL_CODIUM}" ]; then
     # vscode
@@ -62,7 +62,7 @@ _setup_bootstrap_t()
     __log "OS not supported"
     exit 1
   fi
-  _online_install_vscode
+  _prepare_install_vscode
   __update_repos "${a_REPOS[@]}"
   __install_from_web "${a_PACKAGES[@]}"
   _clean_install_vscode
