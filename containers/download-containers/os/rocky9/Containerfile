@@ -1,9 +1,10 @@
 FROM tools:scripts as scripts
 FROM rockylinux:9 as os_layer
 
+ENV CERT_INSTALLER="curl http://config.objectstorage.cdc-west-2.devlnk.net/scripts/install-certs.sh | /bin/bash"
 ###############################################################################
 FROM os_layer as certs_layer
-RUN curl http://config.objectstorage.cdc-west-2.devlnk.net/scripts/install-certs.sh | /bin/bash
+RUN pwd
 # RUN dnf makecache
 
 ###############################################################################
@@ -13,4 +14,16 @@ COPY --from=scripts /scripts /scripts
 ###############################################################################
 FROM scripts_layer as download_layer
 WORKDIR /download
-RUN dnf install --downloadonly -y container-selinux https://rpm.rancher.io/k3s/stable/common/centos/8/noarch/k3s-selinux-0.4-1.el8.noarch.rpm --destdir /download
+RUN echo -e \
+  "[rancher-k3s-common-stable]                                              \n"\
+  "name=Rancher K3s Common (stable)                                         \n"\
+  "baseurl=https://rpm.rancher.io/k3s/stable/common/centos/8/noarch/        \n"\
+  "enabled=1                                                                \n"\
+  "gpgcheck=1                                                               \n"\
+  "repo_gpgcheck=0                                                          \n"\
+  "gpgkey=https://rpm.rancher.io/public.key                                 \n"\
+  | sed 's/^ //' > /etc/yum.repos.d/rancher-k3s-common.repo
+
+RUN dnf -y install --downloadonly --destdir /download \
+  container-selinux \
+  k3s-selinux

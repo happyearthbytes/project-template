@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 . $(dirname "${BASH_SOURCE}")/tool_common_include.sh
 g_DEFAULT_ARGS=("-o" "${__BUILD_DIR}")
-
+__OUTPUT_ARGS=/tmp
 #==============================================================================
 
 # Includes
@@ -22,8 +22,6 @@ _build_download_images() {
 _save_download_images() {
   __save_container_image "${g_CONTAINER_IMAGES[@]}" "${__OUTPUT_ARGS}/containers"
 }
-
-
 
 # Vars
 _PREBUILT_CONTAINERS=( # Common to all
@@ -57,7 +55,6 @@ _register_names()
   local var_name="_DOWNLOAD_PREREQS_${suffix}"[@]
   _DOWNLOAD_PREREQS=( "${!var_name}" )
 }
-
 
 ###############################################################################
 # FUNCTION DEFINITIONS

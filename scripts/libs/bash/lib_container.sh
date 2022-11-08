@@ -22,7 +22,7 @@ __save_container_image()
   mkdir -p "${host_path}"
   for image_name in ${image_names[@]}; do
     ${__CONTAINER_TOOL} save -o "${host_path}"/"${image_name%:*}"-"${image_name##*:}".tar "${image_name}"
-    __log echo "${host_path}"/"${image_name%:*}"-"${image_name##*:}".tar
+    __log Saved to: "${host_path}"/"${image_name%:*}"-"${image_name##*:}".tar
   done
 }
 
