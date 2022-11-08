@@ -15,7 +15,7 @@ setup: ## Perform setup operations - Interactive
 #-------------------------------------------------------------------------------
 download-online_deps: download-online_deps-args download ## Download dependencies while in an online environment
 download-online_deps-args:
-	$(eval ARGS := "--type online_deps")
+	$(eval ARGS := "--type online_deps --os Rocky_Linux_9")
 download: ## Download packages locally - Interactive
 	@$(TOOLS_SCRIPTS)/download.sh ${ARGS}
 # Other

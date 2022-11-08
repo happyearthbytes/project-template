@@ -7,20 +7,34 @@ g_DEFAULT_ARGS=("-o" "${__BUILD_DIR}")
 # Includes
 . "${__LIBS}"/lib_container.sh
 
+
+_setup_download() {
+  local select_from=(podman docker buildah echo)
+  __set_container_tool $(__select_command ${select_from[@]})
+  __select_command "${select_from[@]}"
+}
+_prepare_download_images() {
+  __download_containers_from_web "${_PREBUILT_CONTAINERS[@]}"
+}
+_build_download_images() {
+  __build_container_from_dir "${_DOWNLOAD_PREREQS[@]}"
+}
+_save_download_images() {
+  __save_container_image "${g_CONTAINER_IMAGES[@]}" "${__OUTPUT_ARGS}/containers"
+}
+
+
+
 # Vars
 _PREBUILT_CONTAINERS=( # Common to all
   alpine:latest
 )
 
 _DOWNLOAD_CONTAINER_FILE_DIR=${__CONTAINER_FILE_DIR}/download-containers
-# _ALL_CONTAINER_DIRS=(
-# ${_DOWNLOAD_CONTAINER_FILE_DIR}/os/centos7
-# ${_DOWNLOAD_CONTAINER_FILE_DIR}/os/centos8
-# ${_DOWNLOAD_CONTAINER_FILE_DIR}/os/rocky8
-# ${_DOWNLOAD_CONTAINER_FILE_DIR}/os/rocky9
-# ${_DOWNLOAD_CONTAINER_FILE_DIR}/web
-# )
 
+###
+# FACTORY - Implementations
+###
 # To support bash without associative arrays
 _DOWNLOAD_PREREQS_Rocky_Linux_9=(
   ${_DOWNLOAD_CONTAINER_FILE_DIR}/os/rocky9
@@ -29,66 +43,19 @@ _DOWNLOAD_PREREQS_Rocky_Linux_8=(
   ${_DOWNLOAD_CONTAINER_FILE_DIR}/os/rocky8
 )
 
-_setup_download() {
-  local select_from=(podman docker buildah echo)
-  __set_container_tool $(__select_command ${select_from[@]})
-  __select_command "${select_from[@]}"
-}
-_prepare_download_images() {
-  __download_containers_from_web ${_PREBUILT_CONTAINERS[@]}
-}
-_build_download_images() {
-
-  exit
-  __build_container_from_dir "${_DOWNLOAD_PREREQS[@]}"
-}
-_save_download_images() {
-  __save_container_image ${g_CONTAINER_IMAGES[@]} "${__OUTPUT_ARGS}/containers"
-}
-
 ###
-# bootstrap
+# FACTORY - Generator
 ###
-# These are not part of the formal environment
-# shellcheck disable=SC2034
-PACKAGES_bootstrap=(
-  make
-  podman
-  # codium
-  code
-)
-_setup_bootstrap_t()
+_register_names()
 {
-  # TODO support for multiple OSs
-  if [ ! -e /etc/os-release ]; then
-    __log "OS not supported"
-    exit 1
-  fi
-  _online_install_vscode
-  __update_repos "${a_REPOS[@]}"
-  __install_from_web "${a_PACKAGES[@]}"
-  _clean_install_vscode
-}
-l_decorate d_debug _setup_bootstrap_t _setup_bootstrap
-
-###
-# FACTORY
-# TODO: Left off here - need to use factory method for _DOWNLOAD_PREREQS_Rocky_Linux_9
-###
-_get_setup_functions()
-{
-  local match=(bootstrap online_cicd)
-  local suffix=${_SETUP_ENVIRONMENT_TYPE}
+  local match=(Rocky_Linux_9 Rocky_Linux_8)
+  local suffix=${_OS_FLAG}
   if [[ ! " ${match[@]} " =~ " ${suffix} " ]]; then
     >&2 echo "Error: Invalid environment type: ${suffix}"
     exit 1
   fi
-  local p_SETUP_CMD="_setup"
-  local v_REPOS="REPOS_${suffix}"[@]
-  local v_PACKAGES="PACKAGES_${suffix}"[@]
-  f_SETUP_CMD="${p_SETUP_CMD}_${suffix}"
-  a_REPOS=( "${!v_REPOS}" )
-  a_PACKAGES=( "${!v_PACKAGES}" )
+  local var_name="_DOWNLOAD_PREREQS_${suffix}"[@]
+  _DOWNLOAD_PREREQS=( "${!var_name}" )
 }
 
 
@@ -134,6 +101,7 @@ g_argparse()
 _main() {
   source "${__RUN_ARGPARSE}"
 
+  _register_names
   _setup_download
   _prepare_download_images
   _build_download_images
