@@ -49,6 +49,7 @@
     "spadin.remote-x11",
     "okteto.remote-kubernetes",
     "cs50.vscode-presentation-mode",
-    "xshrim.txt-syntax"
+    "xshrim.txt-syntax",
+    "techer.open-in-browser"
   ]
 }

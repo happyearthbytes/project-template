@@ -1,7 +1,7 @@
 FROM tools:scripts as scripts
 FROM rockylinux:9 as os_layer
 
-ENV CERT_INSTALLER="curl http://config.objectstorage.cdc-west-2.devlnk.net/scripts/install-certs.sh | /bin/bash"
+ARG CERT_INSTALLER="curl http://config.objectstorage.cdc-west-2.devlnk.net/scripts/install-certs.sh | /bin/bash"
 ###############################################################################
 FROM os_layer as certs_layer
 RUN pwd

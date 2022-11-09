@@ -1,0 +1,4 @@
+image_name: cicd
+image_tag: shellcheck
+build_context: .
+requirements: .

@@ -1,0 +1,60 @@
+FROM rockylinux:9 as os_layer
+FROM os_layer as dockerize
+
+RUN dnf -y install pip git buildah rsync
+RUN pip install git+https://github.com/larsks/dockerize
+RUN dnf -y remove git pip
+
+FROM dockerize as install_tools
+
+VOLUME [ "/input" ]
+VOLUME [ "/build" ]
+VOLUME [ "/output" ]
+
+# ENTRYPOINT ["dockerize", "--runtime", "buildah", "-t", "minimal"]
+# CMD ["--help"]
+
+# buildah push --format oci \
+#   minimal:latest \
+#   oci-archive:output/image.tar
+
+
+# usage: dockerize [-h] [--tag TAG] [--cmd CMD] [--entrypoint ENTRYPOINT] [--no-build]
+#                  [--output-dir OUTPUT_DIR] [--add-file SRC DST] [--symlinks SYMLINKS]
+#                  [--user USER] [--group GROUP] [--filetools] [--runtime RUNTIME]
+#                  [--buildcmd BUILDCMD] [--verbose] [--debug] [--version]
+#                  ...
+
+# A tool for creating minimal docker images from dynamic ELF binaries.
+
+# positional arguments:
+#   paths
+
+# optional arguments:
+#   -h, --help            show this help message and exit
+#   --add-file SRC DST, -a SRC DST
+#                         Add file <src> to image at <dst>
+#   --symlinks SYMLINKS, -L SYMLINKS
+#                         One of preserve, copy-unsafe, skip-unsafe, copy-all
+#   --user USER, -u USER  Add user to /etc/passwd in image
+#   --group GROUP, -g GROUP
+#                         Add group to /etc/group in image
+#   --filetools           Add common file manipulation tools
+#   --runtime RUNTIME, -R RUNTIME
+#                         Set container engine for building
+#   --buildcmd BUILDCMD, -B BUILDCMD
+#                         Set command for building
+#   --version             show program's version number and exit
+
+# Docker options:
+#   --tag TAG, -t TAG     Tag to apply to Docker image
+#   --cmd CMD, -c CMD
+#   --entrypoint ENTRYPOINT, -e ENTRYPOINT
+
+# Output options:
+#   --no-build, -n        Do not build Docker image
+#   --output-dir OUTPUT_DIR, -o OUTPUT_DIR
+
+# Logging options:
+#   --verbose
+#   --debug

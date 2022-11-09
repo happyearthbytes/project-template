@@ -1,0 +1,3 @@
+FROM rockylinux:9 as os_layer
+RUN dnf -y install epel-release
+RUN dnf -y install ShellCheck

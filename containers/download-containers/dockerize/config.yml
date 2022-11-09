@@ -1,0 +1,4 @@
+image_name: download
+image_tag: dockerize
+build_context: .
+requirements: .
