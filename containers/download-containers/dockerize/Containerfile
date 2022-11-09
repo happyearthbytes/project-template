@@ -11,12 +11,12 @@ VOLUME [ "/input" ]
 VOLUME [ "/build" ]
 VOLUME [ "/output" ]
 
-# ENTRYPOINT ["dockerize", "--runtime", "buildah", "-t", "minimal"]
-# CMD ["--help"]
+ENTRYPOINT ["dockerize", "--runtime", "buildah", "-t", "minimal"]
+CMD ["--help"]
 
 # buildah push --format oci \
 #   minimal:latest \
-#   oci-archive:output/image.tar
+#   oci-archive:/output/image.tar
 
 
 # usage: dockerize [-h] [--tag TAG] [--cmd CMD] [--entrypoint ENTRYPOINT] [--no-build]
