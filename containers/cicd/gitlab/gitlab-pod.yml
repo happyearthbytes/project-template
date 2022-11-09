@@ -7,8 +7,8 @@ metadata:
 spec:
   containers:
   - name: gitlab
-    image: gitlab/gitlab-ce:latest
-    hostname: gitlab.example.com
+    image: gitlab/gitlab-ce:15.3.5-ce.0
+    hostname: localhost
     ports:
     - containerPort: 22
       hostPort: 2201
@@ -19,9 +19,12 @@ spec:
     - containerPort: 443
       hostPort: 4401
       protocol: TCP
+    - containerPort: 587
+      hostPort: 587
+      protocol: TCP
     resources:
       limits:
-        memory: "128Mi"
+        memory: "512Mi"
         cpu: "500m"
     securityContext:
       privileged: false
@@ -35,7 +38,7 @@ spec:
     - name: gitlab-data
       mountPath: /var/opt/gitlab
       subPath: data
-  restartPolicy: Never
+  restartPolicy: Always
   volumes:
     - name: gitlab-config
       PersistentVolumeClaim:
