@@ -1,12 +1,12 @@
 
-Branching Model
-==============================================================================
+# Branching Model
 
-### Model
+## Model
 
 Simple model
 
-```
+<!-- TODO: insert model? -->
+```text
 release/1.1.0                                                                 o <=RC_TAG/CM_TAG
                                                                              /
 release/1.0.0                    RC_TAG=> o-----------------------------o <=RC_TAG/CM_TAG

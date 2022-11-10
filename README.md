@@ -1,14 +1,13 @@
-Project Template
-===============================================================================
+# Project Template
 
 > This is a project
 
-Start Here
--------------------------------------------------------------------------------
+## Start Here
+
 **--> [Quick Start][quick start] <--**
 
-Project Links
--------------------------------------------------------------------------------
+## Project Links
+
 Name                      | Link
 --                        | --
 website                   | [Confluence][website]
@@ -17,8 +16,8 @@ bug tracker               | [Jira][bugtracker]
 repository                | [BitBucket][repo]
 continuous integration    | [Jenkins][ci]
 
-Project Reference
--------------------------------------------------------------------------------
+## Project Reference
+
 Name                      | Link
 --                        | --
 version                   | [Version][version]
@@ -33,8 +32,8 @@ Branching Model           | [Branch Model][branch_model]
 Versioning                | [Versioning][versioning]
 Change Log                | [Change Log][changelog]
 
-Project Status
--------------------------------------------------------------------------------
+## Project Status
+
 Name                      | Status
 --                        | --
 Reuse                     | ![reuse][reuse-badge]
@@ -45,8 +44,7 @@ Test Status               | [![Test Status][ci-test-badge]][ci-test]
 Verify Status             | [![Verify Status][ci-verify-badge]][ci-verify]
 Code Coverage Status      | ![codecov-badge]
 
-Abstract
--------------------------------------------------------------------------------
+## Abstract
 
 > This file should be modified by the program that is copying it to contain
 information about the project. The Project Template provides automatic hooks
@@ -105,12 +103,12 @@ Installation
 > my_project/make.py install
 ```
 
-Quick Start
--------------------------------------------------------------------------------
+## Quick Start
 
 See [quick start] for more details.
 
-#### Basic commands
+### Basic commands
+
 ```console
 > ./make.py --help
 > ./make.py --build

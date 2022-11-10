@@ -1,6 +1,5 @@
 
-Versioning
-==============================================================================
+# Versioning
 
 ## Release Policy
 
@@ -48,13 +47,13 @@ Follow steps from [BRANCHING_MODEL](./7_BRANCHING_MODEL.md)
 1. <https://esbitbucket.goldlnk.rootlnka.net/plugins/servlet/create-branch?repoId=4858&branchFrom=refs%2Fheads%2Fmaster>
 2. Update [CHANGELOG.md](./CHANGELOG.md). Update [VERSION](../../VERSION)
 
-- git log CM_0.6.0-01_14_2021..HEAD
+   - `git log CM_0.6.0-01_14_2021..HEAD`
 
 3. <https://esbitbucket.goldlnk.rootlnka.net/users/joseph.dipilato/repos/project_template/pull-requests?create>
 4. Make updates to source branch as required
 
-- Rebase if desired
-  - ./scripts/commit_helper.py --rebase master cr/xx-123 --push
+   - Rebase if desired
+     - ./scripts/commit_helper.py --rebase master cr/xx-123 --push
 
 5. <https://esbitbucket.goldlnk.rootlnka.net/users/joseph.dipilato/repos/project_template/pull-requests>
 6. <https://esbitbucket.goldlnk.rootlnka.net/plugins/servlet/bb_ag/projects/~JOSEPH.DIPILATO/repos/project_template/commits>

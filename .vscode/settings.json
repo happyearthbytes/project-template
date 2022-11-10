@@ -48,7 +48,14 @@
   "editor.guides.bracketPairs": true,
   "cmake.configureOnOpen": true,
   "cSpell.words": [
-    "CONOPS"
+    "checkstyle",
+    "cicd",
+    "cloc",
+    "CONOPS",
+    "cppcheck",
+    "doxygen",
+    "Pandoc",
+    "valgrind"
   ],
   "task.allowAutomaticTasks": "on",
 }
