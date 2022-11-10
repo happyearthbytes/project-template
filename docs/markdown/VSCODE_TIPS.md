@@ -7,6 +7,8 @@
 | -------------------- | ----------------------- |
 | ctrl+,               | settings                |
 | ctrl+shift+P         | command palette         |
+| ctrl+k ctrl+s        | shortcuts               |
+| ctrl+space           | intelliSense            |
 
 | open/close           | Description             |
 | -------------------- | ----------------------- |
@@ -41,3 +43,4 @@
 | `ctrl+k ctrl+s`      | `show shortcuts`        |
 | ctrl+shift+J         | join lines              |
 | ctrl+k ctrl+t        | side terminal           |
+| ctrl+shift+t         | run test tasks          |

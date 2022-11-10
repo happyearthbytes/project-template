@@ -3,21 +3,35 @@
   "tasks": [
     {
       "label": "custom-check",
+      "type": "process",
+      "group": "test",
+      "presentation": {
+        "reveal": "silent",
+        "panel": "new",
+        "revealProblems": "onProblem",
+      },
+      "runOptions": {"runOn": "folderOpen", "reevaluateOnRerun": true, "instanceLimit": 1},
       "command": "find",
-      "args": ["${workspaceFolder}","-type","f","!","-path","*.git/*","-exec", "file", "{}", ";"],
+      "args": ["${workspaceFolder}","-type","f","!","-path","*.git/*","-exec", "file", "{}"],
       "problemMatcher": {
         "owner": "file",
         "fileLocation": ["absolute"],
         // "fileLocation": ["relative", "${workspaceFolder}"],
         "pattern": {
-          "regexp": "^(.*):\\s+(((?!(text|JSON|empty)).)*)$",
+          "regexp": "^(.*):\\s+(((?!(text|empty)).)*)$",
           "file": 1,
           // "line": 2,
           // "column": 3,
           // "severity": 4,
           "message": 2
-        }
-      }
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*$",
+          "endsPattern": "^.*$"
+        },
+      },
+      "isBackground": true,
     }
   ]
 }
