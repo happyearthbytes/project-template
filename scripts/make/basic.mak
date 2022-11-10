@@ -24,3 +24,5 @@ install: ## Install downloaded packages
 	@$(TOOLS_SCRIPTS)/install.sh ${ARGS}
 clean: ## clean all temporary files
 	@$(TOOLS_SCRIPTS)/clean.sh ${ARGS}
+check: ## check code - static analysis
+	@$(TOOLS_SCRIPTS)/check.sh ${ARGS}
