@@ -2,6 +2,7 @@
 # |   |             |               |     |
 # done priority    task text         tag  context
 
+(A) re-write shell scripts > 100 lines in a better language
 (A) get cicd working as fast as possible
 (A) local packages - vs containers: k3s? vs local-node? +research
 (B) add .gitconfig to setup.sh +code

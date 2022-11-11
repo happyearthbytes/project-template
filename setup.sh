@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-./scripts/tools/setup.sh ${@}
+./scripts/tools/setup.sh "${@}"
 
 # TODO git config --global core.editor "code --wait"
 

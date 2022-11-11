@@ -50,6 +50,7 @@
     "okteto.remote-kubernetes",
     "cs50.vscode-presentation-mode",
     "xshrim.txt-syntax",
-    "techer.open-in-browser"
+    "techer.open-in-browser",
+    "ms-vscode.makefile-tools"
   ]
 }
