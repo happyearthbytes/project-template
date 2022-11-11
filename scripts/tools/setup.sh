@@ -108,7 +108,7 @@ g_argparse()
     esac
   done
   if [ -z "${_ENV_FLAG}" ]; then
-    local select_from=(bootstrap online_cicd)
+    local select_from=(bootstrap online_cicd online_local)
     _ENV_FLAG=$(__user_select "${select_from[@]}" "Select your environment:")
     [ -z "${_ENV_FLAG}" ] && exit 0
   fi

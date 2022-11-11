@@ -9,6 +9,9 @@ setup-bootstrap-args:
 setup-online_cicd: setup-online_cicd-args setup ## Set up a local cicd instance
 setup-online_cicd-args:
 	$(eval ARGS := "--env online_cicd")
+setup-online_local: setup-online_local-args setup # Set up a local instance
+setup-online_local-args:
+	$(eval ARGS := "--env online_local")
 setup: ## Perform setup operations - Interactive
 	@./setup.sh ${ARGS}
 # Download

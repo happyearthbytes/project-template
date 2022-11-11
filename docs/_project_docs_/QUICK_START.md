@@ -1,6 +1,22 @@
 
 # Quick Start
 
+## Bootstrap
+
+Run `make` with no arguments to see the list of convenience functions.
+
+``` bash
+> make setup-bootstrap
+```
+
+## Local
+
+TODO: Local setup is only for temporary configuration until this repo is updated
+
+``` bash
+> make setup-local
+```
+
 ## Basic
 
 Run `make` with no arguments to see the list of convenience functions.
