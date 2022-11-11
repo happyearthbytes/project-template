@@ -48,6 +48,7 @@
   "editor.guides.bracketPairs": true,
   "cmake.configureOnOpen": true,
   "cSpell.words": [
+    "argparser",
     "checkstyle",
     "cicd",
     "cloc",

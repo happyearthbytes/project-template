@@ -1,7 +1,7 @@
 #!/bin/env python
 import subprocess
-from subprocess import call
 import sys
+from subprocess import call
 
 
 def top_level():
