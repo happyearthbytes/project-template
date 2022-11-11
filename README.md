@@ -17,7 +17,6 @@
 |                                | [Style][code_style]          |
 |                                | [OSS][oss]                   |
 |                                | [Branch Model][branch_model] |
-|                                | [Versioning][versioning]     |
 |                                | [Change Log][changelog]      |
 
 ## Project Status
@@ -53,18 +52,17 @@ This project uses a `make.py` wrapper script to provide basic helper operations.
 # ./make.py --verify
 ```
 
-[website]: http://esconfluence/
+[website]: http://todo/
 [documentation]: docs/
 [bugtracker]: http://todo/
 [repo]: http://todo/
 
-[quick start]: docs/md/QUICK_START.md
-[versioning]: docs/md/VERSIONING.md
-[code_style]: docs/md/CODE_STYLE.md
-[branch_model]: docs/md/DEV_WORKFLOW.md
-[changelog]: docs/md/CHANGELOG.md
-[oss]: docs/md/OSS.md
+[quick start]: docs/_project_docs_/QUICK_START.md
+[code_style]: docs/_project_docs_/CODE_STYLE.md
+[branch_model]: docs/_project_docs_/DEV_WORKFLOW.md
+[changelog]: docs/_project_docs_/CHANGELOG.md
+[oss]: docs/_project_docs_/OSS.md
 
-[contributing]: docs/md/CONTRIBUTING.md
-[license]: docs/md/LICENSE
-[version]: docs/md/VERSION
+[contributing]: docs/_project_docs_/CONTRIBUTING.md
+[license]: docs/LICENSE
+[version]: docs/VERSION
