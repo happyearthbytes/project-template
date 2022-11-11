@@ -4,20 +4,17 @@
 
 ## Start Here
 
-**--> [Quick Start][quick start] <--**
+* [Quick Start][quick start]
+* [Design Docs][design_docs]
 
 ## Project Links
 
-| Project Links                  | Project Reference            |
-| :----------------------------- | :--------------------------- |
-| [Website][website]             | [Version][version]           |
-| [Documentation][documentation] | [Instructions][quick start]  |
-| [Bug Tracker][bugtracker]      | [License][license]           |
-| [Source Repo][repo]            | [Contributing][contributing] |
-|                                | [Style][code_style]          |
-|                                | [OSS][oss]                   |
-|                                | [Branch Model][branch_model] |
-|                                | [Change Log][changelog]      |
+| Project Links                  |                              |                              |
+| :----------------------------- | :--------------------------- | :--------------------------- |
+| [Website][website]             | [Version][version]           | [Style][code_style]          |
+| [Documentation][documentation] | [Instructions][quick start]  | [OSS][oss]                   |
+| [Bug Tracker][bugtracker]      | [License][license]           | [Branch Model][branch_model] |
+| [Source Repo][repo]            | [Contributing][contributing] | [Change Log][changelog]      |
 
 ## Project Status
 
@@ -34,29 +31,12 @@ also includes hooks for DevSecOps integration.
 
 This project uses a `make.py` wrapper script to provide basic helper operations.
 
-## Installation
-
-```console
-# git clone --recurse-submodules <repo>/<project>/<repository>.git
-# <repository>/make.py install
-```
-
-### Basic commands
-
-```console
-# ./make.py --help
-# ./make.py --build
-# ./make.py --test
-# ./make.py --scan
-# ./make.py --docs
-# ./make.py --verify
-```
-
 [website]: http://todo/
 [documentation]: docs/
 [bugtracker]: http://todo/
 [repo]: http://todo/
 
+[design_docs]: docs/_project_docs_/DESIGN_HLD.md
 [quick start]: docs/_project_docs_/QUICK_START.md
 [code_style]: docs/_project_docs_/CODE_STYLE.md
 [branch_model]: docs/_project_docs_/DEV_WORKFLOW.md
