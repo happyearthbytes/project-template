@@ -7,4 +7,4 @@ class Version:
 
     @property
     def version(self) -> str:
-        return "0.1.2"
+        return "0.0.1"

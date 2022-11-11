@@ -44,6 +44,15 @@ class Common:
     from version import Version
     self._version = Version()
 
+  def import_command_interface(self) -> None:
+    """ import command interface """
+    from command_interface import CommandInterface
+    self._command_interface = CommandInterface()
+
   @property
   def version(self) -> str:
     return self._version.version
+
+  @property
+  def cmd(self) -> str:
+    return self._command_interface.cmd
