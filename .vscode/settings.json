@@ -59,4 +59,7 @@
     "valgrind"
   ],
   "task.allowAutomaticTasks": "on",
+  "python.analysis.extraPaths": [
+    "./scripts/libs/python"
+  ],
 }

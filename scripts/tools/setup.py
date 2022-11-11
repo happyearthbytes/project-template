@@ -5,6 +5,11 @@ setup tools
 import argparse
 import sys
 
+from common import Common
+
+common = Common()
+
+sys.exit()
 # 1. arg parse
 
 # 2. use arg to register function on the selected environment type
