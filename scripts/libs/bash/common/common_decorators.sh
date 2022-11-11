@@ -28,7 +28,7 @@ d_debug()
 {
   >&2 echo ${LEVEL}"\\"
   LEVEL="${LEVEL}-"
-  >&2 echo "(debug) $@"
+  >&2 echo "(debug) ${*}"
   $@
   LEVEL="${LEVEL:1:${#LEVEL}}"
   >&2 echo ${LEVEL}"/"

@@ -64,7 +64,7 @@ __extra_args() {
     esac
   done
   set -- "${g_POSITIONAL[@]}" # restore positional parameters
-  __debug "Positional args: ($@)"
+  __debug "Positional args: ($*)"
 }
 # HELP
 #==============================================================================
@@ -127,7 +127,8 @@ __INITIAL_ARGS=$@
 # Set a default arg if not defined
 set -- "${@-${g_DEFAULT_ARGS[@]}}"
 # Parse the common args
-__common_args $@
+# shellcheck disable=SC2068
+__common_args ${@}
 __debug "Input Args: ${__INITIAL_ARGS}"
 # Define the command to run in the script
 # . ${__RUN_ARGPARSE}

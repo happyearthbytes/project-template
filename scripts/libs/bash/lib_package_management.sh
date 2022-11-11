@@ -215,8 +215,8 @@ __download_packages()
 {
   PACKAGES=$@
   echo "===================="
-  echo "Downloading: ${PACKAGES[@]}"
-  $($(_pkg_download_cmd) ${PACKAGES[@]})
+  echo "Downloading: ${PACKAGES[*]}"
+  $($(_pkg_download_cmd) "${PACKAGES[*]}")
   # ADDLINE="max_parallel_downloads=10"
   # _sudo sed -i -e '$a '$ADDLINE -e '/^'$ADDLINE'$/ d' /etc/dnf/dnf.conf
   # dnf download --destdir ${PACKAGE_DOWNLOAD_DIR} ${PACKAGES}
@@ -224,18 +224,18 @@ __download_packages()
 __download()
 {
   PACKAGES=$@
-  echo "Downloading Packages: ${PACKAGES[@]}"
+  echo "Downloading Packages: ${PACKAGES[*]}"
   __get_pkg_functions
-  DEPS=$($(_pkg_get_all_deps_cmd) ${PACKAGES[@]})
-  NEW_DEPS=$($(_pkg_get_new_deps_cmd) ${DEPS[@]})
+  DEPS=$($(_pkg_get_all_deps_cmd) "${PACKAGES[*]}")
+  NEW_DEPS=$($(_pkg_get_new_deps_cmd) "${DEPS[*]}")
   __download_packages ${NEW_DEPS[@]}
 }
 __download_dependencies()
 {
   PACKAGES=$@
-  echo "Downloading Packages and Dependencies: ${PACKAGES[@]}"
+  echo "Downloading Packages and Dependencies: ${PACKAGES[*]}"
   __get_pkg_functions
-  DEPS=$($(_pkg_get_all_deps_cmd) ${PACKAGES[@]})
+  DEPS=$($(_pkg_get_all_deps_cmd) "${PACKAGES[*]}")
   __download_packages ${DEPS[@]}
 }
 
@@ -244,25 +244,25 @@ __download_dependencies()
 ###############################################################################
 __install_from_web () {
   PACKAGES=$@
-  echo "Installing: ${PACKAGES[@]}"
+  echo "Installing: ${PACKAGES[*]}"
   __sudo dnf install -y ${PACKAGES[@]}
 }
 __install_from_rpm()
 {
   PACKAGES=$@
-  echo "Installing: ${PACKAGES[@]}"
+  echo "Installing: ${PACKAGES[*]}"
   __sudo dnf install -y --skip-broken --allowerasing --cacheonly --disablerepo=* ${PACKAGES[@]}
 }
 __install_from_local_dir()
 {
   local rpm_dir=$@
-  echo "Installing: ${rpm_dir[@]}"
+  echo "Installing: ${rpm_dir[*]}"
   __sudo dnf localinstall -y --skip-broken --cacheonly --disablerepo=* ${rpm_dir[@]}/*.rpm
 }
 __install_from_local_repo()
 {
   PACKAGES=$@
-  echo "Installing: ${PACKAGES[@]}"
+  echo "Installing: ${PACKAGES[*]}"
   __sudo dnf install -y --disablerepo=* --enablerepo=local_setup ${PACKAGES[@]}
 }
 
@@ -273,13 +273,13 @@ __update_repos ()
 {
   REPOS=$@
   if [ ${#REPOS} == 0 ]; then return; fi
-  sudo dnf config-manager $(echo "${REPOS[@]}" | sed -e 's/ / --add-repo /g' -e 's/^/--add-repo /')
+  sudo dnf config-manager $(echo "${REPOS[*]}" | sed -e 's/ / --add-repo /g' -e 's/^/--add-repo /')
   dnf makecache
 }
 __remove_repos ()
 {
   REPOS=$@
-  __sudo rm $(echo " ${REPOS[@]}" | sed -e 's| *[^ ]*/| /etc/yum.repos.d/|g') || true
+  __sudo rm $(echo " ${REPOS[*]}" | sed -e 's| *[^ ]*/| /etc/yum.repos.d/|g') || true
 }
 __make_local_repo()
 {

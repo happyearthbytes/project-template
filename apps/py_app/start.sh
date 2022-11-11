@@ -18,8 +18,8 @@ DOC_VER="0.0"
 DOC_REV="0.0.x"
 SPHINX_MODULE_PATH="."
 
-${SPHINX_API} -F -f -a -o ${DOC_DIR} ${SPHINX_MODULE_PATH}
-        -H "${PROJ_NAME}" -A ${CREATOR}
+${SPHINX_API} -F -f -a -o ${DOC_DIR} ${SPHINX_MODULE_PATH} \
+        -H "${PROJ_NAME}" -A ${CREATOR} \
         -V ${DOC_VER} -R ${DOC_REV}
 
 

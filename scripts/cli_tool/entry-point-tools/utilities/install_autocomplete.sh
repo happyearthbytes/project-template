@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 BASHRC=~/.bashrc
 INSTALL_TO_PATH=/usr/local/bin
-UTILITY_DIR="$( cd -- "$(dirname "$BASH_SOURCE")" >/dev/null 2>&1 ; pwd -P )"
-COMMAND_NAME=`${UTILITY_DIR}/get_config_val.sh project_name`
+UTILITY_DIR="$( cd -- "$(dirname "$BASH_SOURCE")" >/dev/null 2>&1 || exit ; pwd -P )"
+COMMAND_NAME=$("${UTILITY_DIR}"/get_config_val.sh project_name)
 INSTALL_COMMAND="${INSTALL_TO_PATH}/${COMMAND_NAME}-tools/utilities/autocomplete.sh"
 
 # Make sure .bashrc exists

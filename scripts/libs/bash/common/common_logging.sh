@@ -8,7 +8,7 @@ __log() {
 __debug() {
   if [ "${__VERBOSE_FLAG}" == true ];
   then
-    echo "DEBUG: $@"
+    echo "DEBUG: $*"
   fi
 }
 

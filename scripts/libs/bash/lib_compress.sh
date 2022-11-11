@@ -10,7 +10,7 @@ _set_encryption_file()
 {
   local __ENCRYPTION_FILE=$1
   _create_temporary_encryption_dir
-  cp "${TEMPORARY_ENCRYPTION_KEY}" > "${__TEMPORARY_ENCRYPTION_FILE}"
+  cp "${TEMPORARY_ENCRYPTION_KEY}" "${__TEMPORARY_ENCRYPTION_FILE}"
 }
 
 _create_temporary_encryption_dir()
@@ -71,7 +71,7 @@ _decrypt_file()
 
 _xxd_encode()
 {
-  __debug "_xxd_encode ${@}"
+  __debug "_xxd_encode ${*}"
   local INPUT_FILE=$1
   local OUTPUT_FILE=$2
   xxd -ps -g1 -c40 "${INPUT_FILE}" > "${OUTPUT_FILE}"
