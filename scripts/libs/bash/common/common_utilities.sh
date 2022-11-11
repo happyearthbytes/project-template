@@ -16,7 +16,7 @@ __sudo(){
   fi
 }
 __local_password() {
-  read -s -p "Local Password (${LOCAL_USER}):" LOCAL_PASSWORD < /dev/tty
+  read -r -s -p "Local Password (${LOCAL_USER}):" LOCAL_PASSWORD < /dev/tty
   echo
 }
 __print_header() {
