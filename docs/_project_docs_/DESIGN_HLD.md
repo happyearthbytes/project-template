@@ -3,6 +3,8 @@
 
 ## Design Diagrams
 
+![tld](../drawio.svg/design/top_level_design.drawio.svg "file")
+
 ## Install CONOPS
 
 ### STAGE-0: bootstrap the process
