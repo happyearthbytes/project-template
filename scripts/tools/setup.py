@@ -8,6 +8,7 @@ import sys
 from common import Common
 
 common = Common()
+print(common.version)
 
 sys.exit()
 # 1. arg parse

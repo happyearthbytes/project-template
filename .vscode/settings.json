@@ -60,6 +60,7 @@
   ],
   "task.allowAutomaticTasks": "on",
   "python.analysis.extraPaths": [
-    "./scripts/libs/python"
+    "./scripts/libs/python",
+    "./scripts/libs/python/common"
   ],
 }

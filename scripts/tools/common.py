@@ -14,22 +14,36 @@ class ProjectDirs:
   scripts: Path = Path()
   tools: Path = Path()
   libs: Path = Path()
-
+  common: Path = Path()
+  config: Path = Path()
 
 class Common:
   def __init__(self) -> None:
-    self.set_path_vars()
-    self.set_includes()
+    self._set_path_vars()
+    self._set_includes()
+    self._common_includes()
 
-  def set_path_vars(self) -> None:
+  def _set_path_vars(self) -> None:
     """ set the path vars """
     self.dirs = ProjectDirs()
     self.dirs.base = Path(__file__).parents[2].resolve()
     self.dirs.root = self.dirs.base.parent.resolve()
     self.dirs.scripts = self.dirs.base / "scripts"
     self.dirs.tools = self.dirs.scripts / "tools"
-    self.dirs.libs = self.dirs.scripts / "tools"
+    self.dirs.libs = self.dirs.scripts / "libs" / "python"
+    self.dirs.common = self.dirs.libs / "common"
+    self.dirs.config = self.dirs.base / "config"
 
-  def set_includes(self) -> None:
-    sys.path.append(self.dirs.libs)
-    print(sys.path)
+  def _set_includes(self) -> None:
+    """ set the include paths """
+    sys.path.append(str(self.dirs.common))
+    sys.path.append(str(self.dirs.libs))
+
+  def _common_includes(self) -> None:
+    """ apply common includes """
+    from version import Version
+    self._version = Version()
+
+  @property
+  def version(self) -> str:
+    return self._version.version
