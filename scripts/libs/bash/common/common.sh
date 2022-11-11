@@ -1,8 +1,9 @@
+#!/usr/bin/env bash
 ###############################################################################
 # VARIABLE DEFINITIONS
 ###############################################################################
 
-if [ ! -z $__COMMON_INSTALLED ]; then
+if [ ! -z "$__COMMON_INSTALLED" ]; then
   return
 fi
 __COMMON_INSTALLED=true

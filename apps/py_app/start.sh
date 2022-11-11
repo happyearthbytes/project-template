@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 PY_APP="app"
 PYTHON3="python3"
 SETUP_PY="setup.py"
@@ -18,7 +19,7 @@ DOC_REV="0.0.x"
 SPHINX_MODULE_PATH="."
 
 ${SPHINX_API} -F -f -a -o ${DOC_DIR} ${SPHINX_MODULE_PATH}
-        -H ${PROJ_NAME} -A ${CREATOR}
+        -H "${PROJ_NAME}" -A ${CREATOR}
         -V ${DOC_VER} -R ${DOC_REV}
 
 

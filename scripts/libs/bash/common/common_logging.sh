@@ -1,11 +1,12 @@
+#!/usr/bin/env bash
 __log() {
-  if [ ${__QUIET_FLAG} != true ];
+  if [ "${__QUIET_FLAG}" != true ];
   then
     echo "$@"
   fi
 }
 __debug() {
-  if [ ${__VERBOSE_FLAG} == true ];
+  if [ "${__VERBOSE_FLAG}" == true ];
   then
     echo "DEBUG: $@"
   fi
@@ -44,5 +45,3 @@ p_() {
 p_format_args() {
   printf "$1\n" | sed 's|-.*  |\x1b[3m\x1b[1m\x1b[34m&\x1b[0m|'
 }
-
-

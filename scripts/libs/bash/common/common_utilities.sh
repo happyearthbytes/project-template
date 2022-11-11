@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 __sudo(){
   SUDO_ARGS=$@
   # if sudo doesn't exist, just run the regular command

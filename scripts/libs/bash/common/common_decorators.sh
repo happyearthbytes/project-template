@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 ###
 # common
 # Usage: l-decorate d-debug _setup_cmd _setup_cmd-d
-# 
+#
 # This will produce a new function: _setup_cmd-d
 # From existing function: _setup_cmd
 # By decorating it with the existing decorator: d-debug
@@ -32,4 +33,3 @@ d_debug()
   LEVEL="${LEVEL:1:${#LEVEL}}"
   >&2 echo ${LEVEL}"/"
 }
-

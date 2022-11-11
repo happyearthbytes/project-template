@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # COMMON
 #==============================================================================
 __VERBOSE_FLAG=false
@@ -5,7 +6,7 @@ __QUIET_FLAG=false
 __INPUT_ARGS=()
 __OUTPUT_ARGS=()
 __common_args() {
-  # Initialize common 
+  # Initialize common
   g_POSITIONAL=()
   while [[ $# -gt 0 ]]; do
     key="$1"
@@ -15,7 +16,7 @@ __common_args() {
         exit 0
         ;;
       --version)
-        echo ${g_VERSION}
+        echo "${g_VERSION}"
         exit 0
         ;;
       --verbose)
@@ -31,13 +32,13 @@ __common_args() {
         shift;
         ;;
       -i|--input)
-        [ -z $2 ] && __help
+        [ -z "$2" ] && __help
         __INPUT_ARGS+=("$2")
         shift;
         shift;
         ;;
       -o|--output)
-        [ -z $2 ] && __help
+        [ -z "$2" ] && __help
         __OUTPUT_ARGS+=("$2")
         shift;
         shift;

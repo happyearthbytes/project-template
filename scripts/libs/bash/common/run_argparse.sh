@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Set a default arg if not defined
 set -- "${g_POSITIONAL[@]}" # restore positional parameters
 if [ -z ${g_DEFAULT_ARGS+x} ];

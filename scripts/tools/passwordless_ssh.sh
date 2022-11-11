@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This is a helper script to facilitate passwordless logins between hosts via ssh
 
 # Help text
@@ -20,4 +20,4 @@ else
 fi
 
 # Run the command to setup passwordless ssh
-cat ~/.ssh/id_rsa.pub | ssh ${USERNAME}@${HOSTNAME} "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
+cat ~/.ssh/id_rsa.pub | ssh "${USERNAME}"@"${HOSTNAME}" "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"
