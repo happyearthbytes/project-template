@@ -100,7 +100,7 @@ _compress_encrypt()
     cp "${INPUT_FILE}" "${INPUT_DIR}"
   fi
 
-  find "${INPUT_DIR}" -type f | sort | head -1 | while read file; do _file_cksum_check "$file"; done
+  find "${INPUT_DIR}" -type f | sort | head -1 | while read -r file; do _file_cksum_check "$file"; done
   _compress_dir "${INPUT_DIR}" ${INTERMEDIATE_FILE}
   _file_cksum_check ${INTERMEDIATE_FILE}
   _encrypt_file ${INTERMEDIATE_FILE} ${INTERMEDIATE_FILE_2} "${ENCRYPTION}"
@@ -124,7 +124,7 @@ _decompress_decrypt()
   rm ${INTERMEDIATE_FILE}
   _file_cksum_check ${INTERMEDIATE_FILE_2}
   _decompress_dir ${INTERMEDIATE_FILE_2} "${OUTPUT_DIR}"
-  find "${OUTPUT_DIR}" -type f | sort | head -1 | while read file; do _file_cksum_check "$file"; done
+  find "${OUTPUT_DIR}" -type f | sort | head -1 | while read -r file; do _file_cksum_check "$file"; done
   rm ${INTERMEDIATE_FILE_2}
 }
 

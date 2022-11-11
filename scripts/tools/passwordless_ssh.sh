@@ -11,9 +11,9 @@ fi
 if [ $# -lt 2 ]
 then
   echo "username: "
-  read USERNAME
+  read -r USERNAME
   echo "hostname: "
-  read HOSTNAME
+  read -r HOSTNAME
 else
   USERNAME=$1
   HOSTNAME=$2
