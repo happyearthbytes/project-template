@@ -2,6 +2,9 @@
 # |   |             |               |     |
 # done priority    task text         tag  context
 
+(A) design yapl
+(A) restructure so that the common scipts can be contained in a single submodule
+
 (A) re-write shell scripts > 100 lines in a better language
 (A) get cicd working as fast as possible
 (A) local packages - vs containers: k3s? vs local-node? +research
@@ -10,6 +13,8 @@
 (B) update gitignore https://www.toptal.com/developers/gitignore/api/visualstudiocode
 (A) use coding style guides for bash functions / variables / etc
 
+(B) tools https://www.howtogeek.com/devops/10-tools-that-complement-docker/
+(B) slimming tools: https://collabnix.com/top-50-essential-docker-developer-tools-you-must-be-aware-of/
 (B) add the ability to bring the network up / down?
 (B) add vscode extensions to setup +download
 (B) deploy a local gitlab instance +devops
