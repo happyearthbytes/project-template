@@ -9,8 +9,8 @@ while read p; do
   DIRNAME=problems/"$NAME"
   mkdir -p "${DIRNAME}"
   touch "${DIRNAME}"/"${NAME}".orig.cpp
-  # rm "${DIRNAME}"/"${NAME}".cpp
-  touch "${DIRNAME}"/"${NAME}".cpp
+  rm "${DIRNAME}"/"${NAME}".cpp
+  touch "${DIRNAME}"/"${NAME}".mine.cpp
   touch "${DIRNAME}"/"${NAME}".html
   touch "${DIRNAME}"/"${NAME}".instructions.txt
   touch "${DIRNAME}"/"${NAME}".code.txt
@@ -21,5 +21,5 @@ while read p; do
   cat "${DIRNAME}"/"${NAME}".code.txt >> "${DIRNAME}"/"${NAME}".orig.cpp
   echo "" >> "${DIRNAME}"/"${NAME}".orig.cpp
   # Add contents if .cpp is empty
-  [ -s "${DIRNAME}"/"${NAME}".cpp ] || cp "${DIRNAME}"/"${NAME}".orig.cpp "${DIRNAME}"/"${NAME}".cpp
+  [ -s "${DIRNAME}"/"${NAME}".cpp ] || cp "${DIRNAME}"/"${NAME}".orig.cpp "${DIRNAME}"/"${NAME}".mine.cpp
 done < links.txt
