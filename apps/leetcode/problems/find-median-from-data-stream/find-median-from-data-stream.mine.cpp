@@ -17,6 +17,7 @@ public:
 /**
  * Your MedianFinder object will be instantiated and called as such:
  * MedianFinder* obj = new MedianFinder();
- * obj-&gt;addNum(num);
- * double param_2 = obj-&gt;findMedian();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
  */
+

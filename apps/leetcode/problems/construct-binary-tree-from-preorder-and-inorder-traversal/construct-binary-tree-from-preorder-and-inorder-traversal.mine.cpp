@@ -12,6 +12,8 @@
  */
 class Solution {
 public:
-    TreeNode* buildTree(vector&lt;int&gt;&amp; preorder, vector        
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        
     }
 };
+

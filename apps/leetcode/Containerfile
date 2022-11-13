@@ -10,8 +10,8 @@ RUN dnf -y install ninja-build
 FROM tools_layer as src_layer
 
 WORKDIR /workspace/src
-COPY . .
 COPY CMakeLists.txt .
+COPY *.mine.cpp .
 
 FROM src_layer as build_layer
 RUN cmake -B /build -S . && cmake --build /build

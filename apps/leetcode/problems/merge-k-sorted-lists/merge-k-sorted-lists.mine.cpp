@@ -11,6 +11,8 @@
  */
 class Solution {
 public:
-    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) {        
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        
     }
 };
+

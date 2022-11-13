@@ -12,6 +12,8 @@
  */
 class Solution {
 public:
-    bool isSubtree(TreeNode* root, TreeNode* subRoot) {        
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        
     }
 };
+

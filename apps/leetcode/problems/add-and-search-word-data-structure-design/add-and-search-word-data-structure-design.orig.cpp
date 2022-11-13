@@ -17,6 +17,7 @@ public:
 /**
  * Your WordDictionary object will be instantiated and called as such:
  * WordDictionary* obj = new WordDictionary();
- * obj-&gt;addWord(word);
- * bool param_2 = obj-&gt;search(word);
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
  */
+

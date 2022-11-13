@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-./build.sh problems/3sum
+./build.sh problems/two-sum
 
 # Array
 
@@ -71,7 +71,7 @@
 # https://leetcode.com/problems/rotate-image
 # https://leetcode.com/problems/word-search
 
-String
+# String
 
 # https://leetcode.com/problems/longest-substring-without-repeating-characters
 # https://leetcode.com/problems/longest-repeating-character-replacement
