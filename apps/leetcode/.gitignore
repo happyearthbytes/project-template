@@ -2,3 +2,4 @@
 *.instructions.txt
 *.url.txt
 *.code.txt
+problems/*/CMakeLists.txt
