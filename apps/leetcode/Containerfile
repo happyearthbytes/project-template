@@ -7,7 +7,9 @@ RUN dnf -y install dnf-plugins-core
 RUN dnf config-manager --set-enabled crb
 RUN dnf -y install ninja-build
 
-FROM tools_layer as src_layer
+FROM leetcode_base as fast_tools_layer
+
+FROM fast_tools_layer as src_layer
 
 WORKDIR /workspace/src
 COPY CMakeLists.txt .
@@ -16,14 +18,14 @@ COPY *.mine.cpp .
 FROM src_layer as build_layer
 RUN cmake -B /build -S . && cmake --build /build
 
-FROM build_layer as dependency_layer
+# FROM build_layer as dependency_layer
 
-WORKDIR /build
-# RUN mkdir /deps
-RUN { ldd -r leet_code; ldd -r -u leet_code; } | sed -n '\,/, s|^[^/]*\([^ ]*\).*|\1|p' | sort | uniq -c | sed -n -e '/^ *1/ s| *1 \(.*\)|cp \1 /deps|p' | sh
+# WORKDIR /build
+# # RUN mkdir /deps
+# RUN { ldd -r leet_code; ldd -r -u leet_code; } | sed -n '\,/, s|^[^/]*\([^ ]*\).*|\1|p' | sort | uniq -c | sed -n -e '/^ *1/ s| *1 \(.*\)|cp \1 /deps|p' | sh
 
-FROM rockylinux:9 as minimal
-COPY --from=dependency_layer /build /
-COPY --from=dependency_layer /deps /
+# FROM rockylinux:9 as minimal
+# COPY --from=dependency_layer /build /
+# COPY --from=dependency_layer /deps /
 ENTRYPOINT []
-CMD ["/leet_code"]
+CMD ["/build/leet_code"]
