@@ -21,5 +21,5 @@ while read p; do
   cat "${DIRNAME}"/"${NAME}".code.txt >> "${DIRNAME}"/"${NAME}".orig.cpp
   echo "" >> "${DIRNAME}"/"${NAME}".orig.cpp
   # Add contents if .cpp is empty
-  [ -s "${DIRNAME}"/"${NAME}".cpp ] || cp "${DIRNAME}"/"${NAME}".orig.cpp "${DIRNAME}"/"${NAME}".mine.cpp
+  [ -s "${DIRNAME}"/"${NAME}".mine.cpp ] || cp "${DIRNAME}"/"${NAME}".orig.cpp "${DIRNAME}"/"${NAME}".mine.cpp
 done < links.txt

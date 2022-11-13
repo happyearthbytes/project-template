@@ -1,0 +1,28 @@
+ARG APP_NAME=hello_world
+FROM rockylinux:9 as os_layer
+FROM os_layer as tools_layer
+
+RUN dnf -y install cmake g++
+RUN dnf -y install dnf-plugins-core
+RUN dnf config-manager --set-enabled crb
+RUN dnf -y install ninja-build
+
+FROM tools_layer as src_layer
+
+WORKDIR /workspace/src
+COPY src .
+
+FROM src_layer as build_layer
+RUN cmake -B /build -S . && cmake --build /build
+
+FROM build_layer as dependency_layer
+
+WORKDIR /build
+# RUN mkdir /deps
+RUN { ldd -r hello_world; ldd -r -u hello_world; } | sed -n '\,/, s|^[^/]*\([^ ]*\).*|\1|p' | sort | uniq -c | sed -n -e '/^ *1/ s| *1 \(.*\)|cp \1 /deps|p' | sh
+
+FROM rockylinux:9 as minimal
+COPY --from=dependency_layer /build /
+COPY --from=dependency_layer /deps /
+ENTRYPOINT []
+CMD ["/hello_world"]
