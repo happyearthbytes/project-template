@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-./build.sh "${PWD}"/problems/climbing-stairs
+./build.sh "${PWD}"/problems/clone-graph
 
 # Array
 
@@ -24,7 +24,7 @@
 
 # Dynamic Programming
 
-# [ ] https://leetcode.com/problems/climbing-stairs
+# [x] https://leetcode.com/problems/climbing-stairs
 # https://leetcode.com/problems/coin-change
 # https://leetcode.com/problems/longest-increasing-subsequence
 # https://leetcode.com/problems/longest-common-subsequence
@@ -38,7 +38,7 @@
 
 # Graph
 
-# https://leetcode.com/problems/clone-graph
+# [ ] https://leetcode.com/problems/clone-graph
 # https://leetcode.com/problems/course-schedule
 # https://leetcode.com/problems/pacific-atlantic-water-flow
 # https://leetcode.com/problems/number-of-islands

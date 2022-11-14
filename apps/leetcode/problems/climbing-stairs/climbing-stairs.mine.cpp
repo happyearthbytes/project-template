@@ -7,30 +7,26 @@
 # include <cassert>
 # include <unordered_map>
 
-//                       p1=100  *1   = 100
-// xxxxxxxxxxxxxxxxxxxxx x        1
 
-
-//                           *3      *2      *1       *1       = p3 * 2 + p3 * 1
-//                           r=3     r=2     r=1      r=0
-//                           p3=25   p2=50   p1=100   p0=100   = p2 * 1 + p2 * 1 = 50
-// xxxxxxxxxxxxxxxx   x   x  x       x       x        x
-
-
+//     8     7     6     5     4     3     2     1
+//     1     2     3     4     5     6     7     8
+//     21    13    8     5     3     2     1     1
+//
 class Solution {
 public:
     int calculate(int n) {
-        std::unordered_map<int, int> hm;
-        hm[0] = 1;
-        hm[1] = 1;
-        for (int i = 2; i <= n; ++i) {
-            hm[i] = hm[i-1] + hm[i-2];
-            std::cout << hm[i] << std::endl; //
+        int first = 1;
+        int second = 1;
+        int answer = 1;
+
+        for (int i = 2; i < n; i ++) {
+            answer = first + second;
+            second = first;
+            first = answer;
         }
 
-        return hm[n];
+        return answer;
     };
-
 
 
     typedef int t_result;
@@ -40,11 +36,11 @@ public:
     t_input in_val;
 
     void run(void) {
-        in_val = 3;
+        in_val = 8;
         result = calculate(in_val);
     }
     void set_expect(void) {
-        expected = 3;
+        expected = 21;
         // int src[] = {8,7};
         // expected.assign(std::begin(src), std::end(src));
     }

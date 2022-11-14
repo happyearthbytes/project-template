@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Input file
-FILE=/src
 
 LASTTIME=0
 
@@ -9,7 +8,7 @@ LASTTIME=0
 rm /build/*
 
 while [ true ]; do
-  FILETIME=$(stat $FILE --format=%Y)
+  FILETIME=$(stat /src/*mine.cpp --format=%Y)
   if [ "$LASTTIME" -ne "${FILETIME}" ]; then
     echo "===="
     LASTTIME=${FILETIME}
