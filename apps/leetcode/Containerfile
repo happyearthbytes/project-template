@@ -7,17 +7,22 @@ RUN dnf -y install dnf-plugins-core
 RUN dnf config-manager --set-enabled crb
 RUN dnf -y install ninja-build
 
+# WORKDIR /workspace/src
+# COPY CMakeLists.txt .
+
 FROM leetcode_base as fast_tools_layer
 
 FROM fast_tools_layer as src_layer
+WORKDIR /src
+VOLUME [ "/src" ]
 
-WORKDIR /workspace/src
-COPY CMakeLists.txt .
-COPY *.mine.cpp .
+# COPY *.mine.cpp .
 
 FROM src_layer as build_layer
-RUN cmake -B /build -S . && cmake --build /build
+VOLUME [ "/build" ]
+# RUN cmake -B /build -S /src && cmake --build /build
 
+VOLUME [ "/pwd" ]
 # FROM build_layer as dependency_layer
 
 # WORKDIR /build
@@ -28,4 +33,5 @@ RUN cmake -B /build -S . && cmake --build /build
 # COPY --from=dependency_layer /build /
 # COPY --from=dependency_layer /deps /
 ENTRYPOINT []
-CMD ["/build/leet_code"]
+# CMD ["/build/leet_code"]
+CMD /pwd/test_forever.sh

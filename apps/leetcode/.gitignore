@@ -3,3 +3,4 @@
 *.url.txt
 *.code.txt
 problems/*/CMakeLists.txt
+problems/*/test_forever.sh

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-./build.sh problems/two-sum
+./build.sh "${PWD}"/problems/climbing-stairs
 
 # Array
 
-# https://leetcode.com/problems/two-sum
+# [x] https://leetcode.com/problems/two-sum
 # https://leetcode.com/problems/best-time-to-buy-and-sell-stock
 # https://leetcode.com/problems/contains-duplicate
 # https://leetcode.com/problems/product-of-array-except-self
@@ -24,7 +24,7 @@
 
 # Dynamic Programming
 
-# https://leetcode.com/problems/climbing-stairs
+# [ ] https://leetcode.com/problems/climbing-stairs
 # https://leetcode.com/problems/coin-change
 # https://leetcode.com/problems/longest-increasing-subsequence
 # https://leetcode.com/problems/longest-common-subsequence
