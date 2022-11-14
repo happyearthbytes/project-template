@@ -18,6 +18,6 @@ while [ true ]; do
     /build/leet_code
     echo "===="
   fi
-
+  echo -n "."
   sleep 1;
 done
