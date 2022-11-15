@@ -22,6 +22,25 @@
 # include <cassert>
 # include <unordered_map>
 
+// [3,4] [5,7] [9,11]
+// [1,12]
+
+// [3,4] [5,7] [9,11]
+//  |
+// [1,12] // only check against new[0], until new[0] has been used
+//  |
+// [1, ]
+//    [3,4] [5,7] [9,11]
+//     |
+// [1,12] // now only check for new[1]
+
+
+
+
+
+//
+// [1,12]
+
 
 class Solution {
 public:
@@ -39,13 +58,7 @@ public:
 
         for (auto c: intervals) {
 
-            if (c[0] > n[0]){
-                tmp[0] = n[0];
 
-            }
-            if (c[1] > n[1]){
-                tmp[1] = n[1];
-            }
             rval.push_back(tmp);
             printer(c[0]);
         }
