@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-./build.sh "${PWD}"/problems/clone-graph
+./build.sh "${PWD}"/problems/insert-interval
 
 # Array
 
@@ -38,7 +38,7 @@
 
 # Graph
 
-# [ ] https://leetcode.com/problems/clone-graph
+# [x] https://leetcode.com/problems/clone-graph
 # https://leetcode.com/problems/course-schedule
 # https://leetcode.com/problems/pacific-atlantic-water-flow
 # https://leetcode.com/problems/number-of-islands
@@ -49,7 +49,7 @@
 
 # Interval
 
-# https://leetcode.com/problems/insert-interval
+# [ ] https://leetcode.com/problems/insert-interval
 # https://leetcode.com/problems/merge-intervals
 # https://leetcode.com/problems/non-overlapping-intervals
 # https://leetcode.com/problems/meeting-rooms
