@@ -49,7 +49,7 @@
 
 # Interval
 
-# [ ] https://leetcode.com/problems/insert-interval
+# [x] https://leetcode.com/problems/insert-interval
 # https://leetcode.com/problems/merge-intervals
 # https://leetcode.com/problems/non-overlapping-intervals
 # https://leetcode.com/problems/meeting-rooms
@@ -57,7 +57,7 @@
 
 # Linked List
 
-# https://leetcode.com/problems/reverse-linked-list
+# [x] https://leetcode.com/problems/reverse-linked-list
 # https://leetcode.com/problems/linked-list-cycle
 # https://leetcode.com/problems/merge-two-sorted-lists
 # https://leetcode.com/problems/merge-k-sorted-lists
